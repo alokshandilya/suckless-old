@@ -13,7 +13,7 @@
 
 /* appearance */
 static const unsigned int borderpx  = 4;        /* border pixel of windows */
-static const unsigned int gappx     = 5;        /* gaps between windows */
+static const unsigned int gappx     = 7;        /* gaps between windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const unsigned int systraypinning = 0;   /* 0: sloppy systray follows selected monitor, >0: pin systray to monitor X */
 static const unsigned int systrayonleft = 0;   	/* 0: systray in the right corner, >0: systray on left of status text */
@@ -38,7 +38,7 @@ static const char dmenufont[]       = "Mononoki Nerd Font:size=11:antialias=true
 	     			      /*"Hack:size=11:antialias=true:autohint=true"
 				      "JoyPixels:size=12:antialias=true:autohint=true"
 					*/
-static const char col_gray1[]       = "#08031A";	//background color default - dark grey - #222222
+static const char col_gray1[]       = "#000000";	//background color default - dark grey - #222222
 static const char col_gray2[]       = "#444444";	//default is #444444
 static const char col_gray3[]       = "#ffffff";	//color of tags(worksapces) and text on right xsetroot or scipts--default is #bbbbbb
 static const char col_gray4[]       = "#ffffff";	//color of text of active window when opened (in middle of dwmbar) and active tag's font--default is #eeeeee
@@ -53,7 +53,7 @@ static const char *colors[][3]      = {
 /* static const char *tags[] = { "一", "二", "三", "四", "五", "六", "七", "八", "九" }; */
 /* static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" }; */
 /* static const char *tags[] = { "HOME", "WEB", "MUSIC", "CODE", "EDIT", "GAME", "OFFICE", "MISC", "HMM" }; */
-static const char *tags[] = { "", "", "", "", "", "", "", "", "" };
+static const char *tags[] = { "", "", "" , "", "", "", "", "", "" };
 /* static const char *alttags[] = { " HOME", " WEB", " MUSIC", " CODE", " EDIT", " GAME", " OFFICE", " MISC", " HMM" }; */
 
 //static const char *tags[] = { "", "", "", "", "", "", "", "", "" };
@@ -63,12 +63,12 @@ static const Rule rules[] = {
 	 *	WM_CLASS(STRING) = instance, class
 	 *	WM_NAME(STRING) = title
 	 */
-	/* class      instance    title       tags mask     isfloating   monitor */
-	{ "Gimp",     NULL,       NULL,       0,            1,           0 },
-	{ "Brave-browser",  NULL,       NULL,       1 << 1,       0,           0 },
-	{ "Code",     NULL,	  NULL,	      1 << 2,	    0,		 0 },
-	{ "jetbrains-studio", NULL,	  NULL,	      1 << 1,	    0,  	 0 },
-	{ "Spotify",  NULL,	  NULL,       1 << 3,	    0,		 0 },
+	/* class     		 instance    title       tags mask     isfloating   monitor */
+	{ "Gimp",     		 NULL,       NULL,       0,            1,           0 },
+	{ "Brave-browser",  	 NULL,       NULL,       1 << 0,       0,           0 },
+	{ "Code",    	   	 NULL,	     NULL,	 1 << 1,       0,	    0 },
+	{ "jetbrains-studio", 	 NULL,	     NULL,	 1 << 1,       0,  	    0 },
+	{ "Spotify",  	 	 NULL,	     NULL,       1 << 3,       0,	    0 },
 	
 };
 
@@ -114,7 +114,8 @@ static const char *browsercmd[] = { "/usr/bin/brave", NULL };
 static const char *thunarcmd[] = { "/usr/bin/dolphin", NULL };
 static const char *codecmd[] = { "/usr/bin/code", NULL };
 static const char *simplenotecmd[] = { "/usr/bin/simplenote", NULL };
-static const char *volume_control[] = {"/usr/bin/pavucontrol", NULL };
+static const char *volume_control[] = { "/usr/bin/pavucontrol", NULL };
+static const char *email_client[] = { "/usr/bin/thunderbird", NULL };
 static const char *ranger[] = { "terminator", "-e ranger", NULL };
 static const char *bpytop[] = { "terminator", "-e bpytop", NULL };
 static const char *spotify_adblock[] = {"/home/aloks/.config/scripts/spotify-adblock", NULL };
@@ -122,6 +123,8 @@ static const char *spotify_adblock[] = {"/home/aloks/.config/scripts/spotify-adb
 static const char *printscr_full[] = { "/home/aloks/.config/scripts/printscr_full", NULL };
 static const char *printscr[] = { "/home/aloks/.config/scripts/printscr", NULL };
 static const char *wallchange[] = { "/home/aloks/.config/scripts/wallchange", NULL };
+static const char *poweroffcmd[] = { "systemctl", "poweroff", NULL };
+//static const char *rebootcmd[] =  { "systemctl", "reboot", NULL };
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
@@ -136,6 +139,7 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,		XK_e,	   spawn,	   {.v = ranger } },
 	{ MODKEY|ShiftMask,		XK_t,	   spawn,	   {.v = bpytop } },
 	{ MODKEY|ShiftMask,		XK_s,	   spawn,	   {.v = spotify_adblock } },
+	{ MODKEY|ShiftMask,		XK_m,	   spawn,	   {.v = email_client } },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
@@ -180,6 +184,8 @@ static Key keys[] = {
 	{ MODKEY,			XK_F2,	   spawn,	   {.v = wallchange} },	
 	{ 0,				XK_Print,  spawn,	   {.v = printscr_full} },
 	{ ShiftMask,			XK_Print,  spawn,	   {.v = printscr} },
+	{ MODKEY|ShiftMask,		XK_p,	   spawn,	   {.v = poweroffcmd} },	
+	//{ MODKEY|ShiftMask,		XK_r,	   spawn,	   {.v = rebootcmd} },
 };
 
 /* button definitions */
