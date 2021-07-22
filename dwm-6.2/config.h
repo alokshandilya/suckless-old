@@ -111,7 +111,7 @@ static const char *brupcmd[] = { "xbacklight", "-inc", "5", NULL };
 static const char *brdowncmd[] = { "xbacklight", "-dec", "5", NULL };
 
 static const char *browsercmd[] = { "/usr/bin/brave", NULL };
-static const char *thunarcmd[] = { "/usr/bin/dolphin", NULL };
+static const char *filemanagercmd[] = { "/usr/bin/thunar", NULL };
 static const char *codecmd[] = { "/usr/bin/code", NULL };
 static const char *plannercmd[] = { "/usr/bin/planner", NULL };
 static const char *volume_control[] = { "/usr/bin/pavucontrol", NULL };
@@ -132,7 +132,7 @@ static Key keys[] = {
 	{ MODKEY,	                XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY,			XK_r,	   spawn,	   {.v = roficmd } },
 	{ MODKEY,			XK_w,	   spawn,	   {.v = browsercmd } },
-	{ MODKEY,			XK_e,	   spawn,	   {.v = thunarcmd } },
+	{ MODKEY,			XK_e,	   spawn,	   {.v = filemanagercmd } },
 	{ MODKEY,			XK_c,	   spawn,	   {.v = codecmd } },
 	{ MODKEY,			XK_n,	   spawn,	   {.v = plannercmd } },
 	{ MODKEY,			XK_v,	   spawn,	   {.v = volume_control } },
@@ -153,6 +153,7 @@ static Key keys[] = {
 	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
 	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },
 	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
+	{ MODKEY|ShiftMask,             XK_f,      fullscreen,     {0} },
 	{ MODKEY,                       XK_space,  setlayout,      {0} },
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
 	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
