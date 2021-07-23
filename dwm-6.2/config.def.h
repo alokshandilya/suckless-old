@@ -38,11 +38,11 @@ static const char dmenufont[]       = "Mononoki Nerd Font:size=11:antialias=true
 	     			      /*"Hack:size=11:antialias=true:autohint=true"
 				      "JoyPixels:size=12:antialias=true:autohint=true"
 					*/
-static const char col_gray1[]       = "#000000";	//background color default - dark grey - #222222
+static const char col_gray1[]       = "#272935";	//background color default - dark grey - #222222
 static const char col_gray2[]       = "#444444";	//default is #444444
 static const char col_gray3[]       = "#ffffff";	//color of tags(worksapces) and text on right xsetroot or scipts--default is #bbbbbb
 static const char col_gray4[]       = "#ffffff";	//color of text of active window when opened (in middle of dwmbar) and active tag's font--default is #eeeeee
-static const char col_cyan[]        = "#7D5CAB";	//foreground color default - blue - #005577 -- 62679e
+static const char col_cyan[]        = "#886EB4";	//foreground color default - blue - #005577 -- 62679e
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
 	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
@@ -119,6 +119,7 @@ static const char *email_client[] = { "/usr/bin/mailspring", NULL };
 static const char *ranger[] = { "terminator", "-e ranger", NULL };
 static const char *bpytop[] = { "terminator", "-e bpytop", NULL };
 static const char *spotify_adblock[] = {"/home/aloks/.config/scripts/spotify-adblock", NULL };
+static const char *weatherforecast[] = {"terminator", "-e", "/home/aloks/.config/scripts/weatherforecast.sh; zsh", NULL };
 
 static const char *printscr_full[] = { "/home/aloks/.config/scripts/printscr_full", NULL };
 static const char *printscr[] = { "/home/aloks/.config/scripts/printscr", NULL };
@@ -132,6 +133,7 @@ static Key keys[] = {
 	{ MODKEY,	                XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY,			XK_r,	   spawn,	   {.v = roficmd } },
 	{ MODKEY,			XK_w,	   spawn,	   {.v = browsercmd } },
+	{ MODKEY|ShiftMask,		XK_w,	   spawn,	   {.v = weatherforecast } },
 	{ MODKEY,			XK_e,	   spawn,	   {.v = filemanagercmd } },
 	{ MODKEY,			XK_c,	   spawn,	   {.v = codecmd } },
 	{ MODKEY,			XK_n,	   spawn,	   {.v = plannercmd } },
