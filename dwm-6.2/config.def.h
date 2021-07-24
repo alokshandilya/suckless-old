@@ -116,8 +116,8 @@ static const char *codecmd[] = { "/usr/bin/code", NULL };
 static const char *plannercmd[] = { "/usr/bin/planner", NULL };
 static const char *volume_control[] = { "/usr/bin/pavucontrol", NULL };
 static const char *email_client[] = { "/usr/bin/mailspring", NULL };
-static const char *ranger[] = { "alacritty", "-e ranger", NULL };
-static const char *bpytop[] = { "alacritty", "-e bpytop", NULL };
+static const char *ranger[] = { "/home/aloks/.config/scripts/ranger", NULL };
+static const char *bpytop[] = { "/home/aloks/.config/scripts/bpytop", NULL };
 static const char *spotify_adblock[] = {"/home/aloks/.config/scripts/spotify-adblock", NULL };
 static const char *weatherforecast[] = {"alacritty", "-e", "/home/aloks/.config/scripts/weatherforecast.sh; zsh", NULL };
 
