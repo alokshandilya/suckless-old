@@ -12,8 +12,8 @@
 #include <X11/XF86keysym.h>
 
 /* appearance */
-static const unsigned int borderpx  = 4;        /* border pixel of windows */
-static const unsigned int gappx     = 7;        /* gaps between windows */
+static const unsigned int borderpx  = 3;        /* border pixel of windows */
+static const unsigned int gappx     = 10;        /* gaps between windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const unsigned int systraypinning = 0;   /* 0: sloppy systray follows selected monitor, >0: pin systray to monitor X */
 static const unsigned int systrayonleft = 0;   	/* 0: systray in the right corner, >0: systray on left of status text */
@@ -119,7 +119,7 @@ static const char *email_client[] = { "/usr/bin/mailspring", NULL };
 static const char *ranger[] = { "/home/aloks/.config/scripts/ranger", NULL };
 static const char *bpytop[] = { "/home/aloks/.config/scripts/bpytop", NULL };
 static const char *spotify_adblock[] = {"/home/aloks/.config/scripts/spotify-adblock", NULL };
-static const char *weatherforecast[] = {"alacritty", "-e", "/home/aloks/.config/scripts/weatherforecast.sh; zsh", NULL };
+static const char *weatherforecast[] = {"terminator", "-e", "/home/aloks/.config/scripts/weatherforecast.sh; zsh", NULL };
 
 static const char *printscr_full[] = { "/home/aloks/.config/scripts/printscr_full", NULL };
 static const char *printscr[] = { "/home/aloks/.config/scripts/printscr", NULL };
