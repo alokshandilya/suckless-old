@@ -7,7 +7,7 @@ static const Block blocks[] = {
 
 	{" 🔺 ", "$HOME/.config/scripts/upt",		        60,		            2},
 
-	{" 📦 ", "$HOME/.config/scripts/pacupdate",		360,		        9},
+	//{" 📦 ", "$HOME/.config/scripts/pacupdate",		360,		        9},
 	
 	{" 💻 ", "$HOME/.config/scripts/memory",	        6,		            1},
 
