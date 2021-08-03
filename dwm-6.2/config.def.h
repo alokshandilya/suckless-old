@@ -13,7 +13,7 @@
 
 /* appearance */
 static const unsigned int borderpx  = 3;        /* border pixel of windows */
-static const unsigned int gappx     = 10;        /* gaps between windows */
+static const unsigned int gappx     = 5;        /* gaps between windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const unsigned int systraypinning = 0;   /* 0: sloppy systray follows selected monitor, >0: pin systray to monitor X */
 static const unsigned int systrayonleft = 0;   	/* 0: systray in the right corner, >0: systray on left of status text */
@@ -38,11 +38,11 @@ static const char dmenufont[]       = "Mononoki Nerd Font:size=11:antialias=true
 	     			      /*"Hack:size=11:antialias=true:autohint=true"
 				      "JoyPixels:size=12:antialias=true:autohint=true"
 					*/
-static const char col_gray1[]       = "#272935";	//background color default - dark grey - #222222
+static const char col_gray1[]       = "#202334";	//background color default - dark grey - #222222
 static const char col_gray2[]       = "#444444";	//default is #444444
 static const char col_gray3[]       = "#ffffff";	//color of tags(worksapces) and text on right xsetroot or scipts--default is #bbbbbb
 static const char col_gray4[]       = "#ffffff";	//color of text of active window when opened (in middle of dwmbar) and active tag's font--default is #eeeeee
-static const char col_cyan[]        = "#886EB4";	//foreground color default - blue - #005577 -- 62679e
+static const char col_cyan[]        = "#B66748";	//foreground color default - blue - #005577 -- 62679e
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
 	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
@@ -107,8 +107,8 @@ static const char *volupcmd[] = { "amixer", "-q", "set", "Master", "5%+", "unmut
 static const char *voldowncmd[] = { "amixer", "-q", "set", "Master", "5%-", "unmute", NULL };
 static const char *miccmd[] = { "amixer", "set", "Capture", "toggle", NULL };
 
-static const char *brupcmd[] = { "xbacklight", "-inc", "5", NULL };
-static const char *brdowncmd[] = { "xbacklight", "-dec", "5", NULL };
+static const char *brupcmd[] = { "xbacklight", "-inc", "3", NULL };
+static const char *brdowncmd[] = { "xbacklight", "-dec", "3", NULL };
 
 static const char *browsercmd[] = { "/usr/bin/brave", NULL };
 static const char *filemanagercmd[] = { "/usr/bin/thunar", NULL };
@@ -124,6 +124,7 @@ static const char *weatherforecast[] = {"terminator", "-e", "/home/aloks/.config
 static const char *printscr_full[] = { "/home/aloks/.config/scripts/printscr_full", NULL };
 static const char *printscr[] = { "/home/aloks/.config/scripts/printscr", NULL };
 static const char *wallchange[] = { "/home/aloks/.config/scripts/wallchange", NULL };
+static const char *lockscreen[] = { "betterlockscreen", "-l", "blur" };
 static const char *poweroffcmd[] = { "poweroff", NULL };
 //static const char *rebootcmd[] =  { "systemctl", "reboot", NULL };
 
@@ -143,6 +144,7 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,		XK_t,	   spawn,	   {.v = bpytop } },
 	{ MODKEY|ShiftMask,		XK_s,	   spawn,	   {.v = spotify_adblock } },
 	{ MODKEY|ShiftMask,		XK_m,	   spawn,	   {.v = email_client } },
+	{ MODKEY|ShiftMask,		XK_l,	   spawn,	   {.v = lockscreen } },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
