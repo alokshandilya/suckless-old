@@ -12,7 +12,7 @@
 #include <X11/XF86keysym.h>
 
 /* appearance */
-static const unsigned int borderpx  = 3;        /* border pixel of windows */
+static const unsigned int borderpx  = 0;        /* border pixel of windows */
 static const unsigned int gappx     = 5;        /* gaps between windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const unsigned int systraypinning = 0;   /* 0: sloppy systray follows selected monitor, >0: pin systray to monitor X */
@@ -38,11 +38,11 @@ static const char dmenufont[]       = "Mononoki Nerd Font:size=11:antialias=true
 	     			      /*"Hack:size=11:antialias=true:autohint=true"
 				      "JoyPixels:size=12:antialias=true:autohint=true"
 					*/
-static const char col_gray1[]       = "#202334";	//background color default - dark grey - #222222
+static const char col_gray1[]       = "#1B1E25";	//background color default - dark grey - #222222
 static const char col_gray2[]       = "#444444";	//default is #444444
 static const char col_gray3[]       = "#ffffff";	//color of tags(worksapces) and text on right xsetroot or scipts--default is #bbbbbb
 static const char col_gray4[]       = "#ffffff";	//color of text of active window when opened (in middle of dwmbar) and active tag's font--default is #eeeeee
-static const char col_cyan[]        = "#B66748";	//foreground color default - blue - #005577 -- 62679e
+static const char col_cyan[]        = "#5F808F";	//foreground color default - blue - #005577 -- 62679e
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
 	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
