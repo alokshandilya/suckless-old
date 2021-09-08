@@ -12,8 +12,8 @@
 #include <X11/XF86keysym.h>
 
 /* appearance */
-static const unsigned int borderpx  = 0;        /* border pixel of windows */
-static const unsigned int gappx     = 5;        /* gaps between windows */
+static const unsigned int borderpx  = 3;        /* border pixel of windows */
+static const unsigned int gappx     = 8;        /* gaps between windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const unsigned int systraypinning = 0;   /* 0: sloppy systray follows selected monitor, >0: pin systray to monitor X */
 static const unsigned int systrayonleft = 0;   	/* 0: systray in the right corner, >0: systray on left of status text */
@@ -38,11 +38,11 @@ static const char dmenufont[]       = "Mononoki Nerd Font:size=11:antialias=true
 	     			      /*"Hack:size=11:antialias=true:autohint=true"
 				      "JoyPixels:size=12:antialias=true:autohint=true"
 					*/
-static const char col_gray1[]       = "#1B1E25";	//background color default - dark grey - #222222
+static const char col_gray1[]       = "#282A36";	//background color default - dark grey - #222222
 static const char col_gray2[]       = "#444444";	//default is #444444
-static const char col_gray3[]       = "#ffffff";	//color of tags(worksapces) and text on right xsetroot or scipts--default is #bbbbbb
-static const char col_gray4[]       = "#ffffff";	//color of text of active window when opened (in middle of dwmbar) and active tag's font--default is #eeeeee
-static const char col_cyan[]        = "#5F808F";	//foreground color default - blue - #005577 -- 62679e
+static const char col_gray3[]       = "#E5DFE0";	//color of tags(worksapces) and text on right xsetroot or scipts--default is #bbbbbb
+static const char col_gray4[]       = "#1B1E25";	//color of text of active window when opened (in middle of dwmbar) and active tag's font--default is #eeeeee
+static const char col_cyan[]        = "#88C0D0";	//foreground color default - blue - #005577 -- 62679e
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
 	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
@@ -98,7 +98,8 @@ static const Layout layouts[] = {
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
-static const char *roficmd[] = { "rofi", "-show", "drun", NULL };
+//static const char *roficmd[] = { "rofi", "-show", "drun", NULL };
+static const char *roficmd[] = { "/home/aloks/.config/rofi/launchers/launch.sh", NULL };
 
 static const char *termcmd[]  = { "alacritty", NULL };
 
@@ -111,13 +112,15 @@ static const char *brupcmd[] = { "xbacklight", "-inc", "3", NULL };
 static const char *brdowncmd[] = { "xbacklight", "-dec", "3", NULL };
 
 static const char *browsercmd[] = { "/usr/bin/brave", NULL };
-static const char *filemanagercmd[] = { "/usr/bin/thunar", NULL };
+//static const char *filemanagercmd[] = { "/usr/bin/thunar", NULL };
+static const char *filemanagercmd[] = { "/usr/bin/dolphin", NULL };
 static const char *codecmd[] = { "/usr/bin/code", NULL };
 static const char *plannercmd[] = { "/usr/bin/planner", NULL };
 static const char *volume_control[] = { "/usr/bin/pavucontrol", NULL };
 static const char *email_client[] = { "/usr/bin/mailspring", NULL };
-static const char *ranger[] = { "/home/aloks/.config/scripts/ranger", NULL };
-static const char *bpytop[] = { "/home/aloks/.config/scripts/bpytop", NULL };
+static const char *ranger[] = { "alacritty", "-e", "ranger", NULL };
+//static const char *ranger[] = { "/home/aloks/.config/scripts/ranger", NULL };
+static const char *bpytop[] = { "alacritty", "-e", "bpytop", NULL };
 static const char *spotify_adblock[] = {"/home/aloks/.config/scripts/spotify-adblock", NULL };
 static const char *weatherforecast[] = {"terminator", "-e", "/home/aloks/.config/scripts/weatherforecast.sh; zsh", NULL };
 
