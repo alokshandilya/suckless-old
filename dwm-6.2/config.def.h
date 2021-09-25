@@ -13,7 +13,7 @@
 
 /* appearance */
 static const unsigned int borderpx  = 3;        /* border pixel of windows */
-static const unsigned int gappx     = 8;        /* gaps between windows */
+static const unsigned int gappx     = 10;        /* gaps between windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const unsigned int systraypinning = 0;   /* 0: sloppy systray follows selected monitor, >0: pin systray to monitor X */
 static const unsigned int systrayonleft = 0;   	/* 0: systray in the right corner, >0: systray on left of status text */
@@ -38,10 +38,10 @@ static const char dmenufont[]       = "Mononoki Nerd Font:size=11:antialias=true
 	     			      /*"Hack:size=11:antialias=true:autohint=true"
 				      "JoyPixels:size=12:antialias=true:autohint=true"
 					*/
-static const char col_gray1[]       = "#282A36";	//background color default - dark grey - #222222
+static const char col_gray1[]       = "#2E3440";	//background color default - dark grey - #222222
 static const char col_gray2[]       = "#444444";	//default is #444444
 static const char col_gray3[]       = "#E5DFE0";	//color of tags(worksapces) and text on right xsetroot or scipts--default is #bbbbbb
-static const char col_gray4[]       = "#1B1E25";	//color of text of active window when opened (in middle of dwmbar) and active tag's font--default is #eeeeee
+static const char col_gray4[]       = "#2E3440";	//color of text of active window when opened (in middle of dwmbar) and active tag's font--default is #eeeeee
 static const char col_cyan[]        = "#88C0D0";	//foreground color default - blue - #005577 -- 62679e
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
@@ -98,8 +98,8 @@ static const Layout layouts[] = {
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
-//static const char *roficmd[] = { "rofi", "-show", "drun", NULL };
-static const char *roficmd[] = { "/home/aloks/.config/rofi/launchers/launch.sh", NULL };
+static const char *roficmd[] = { "rofi", "-show", "drun", NULL };
+//static const char *roficmd[] = { "/home/aloks/.config/rofi/launchers/launch.sh", NULL };
 
 static const char *termcmd[]  = { "alacritty", NULL };
 
@@ -120,11 +120,13 @@ static const char *volume_control[] = { "/usr/bin/pavucontrol", NULL };
 static const char *email_client[] = { "/usr/bin/mailspring", NULL };
 static const char *ranger[] = { "alacritty", "-e", "ranger", NULL };
 //static const char *ranger[] = { "/home/aloks/.config/scripts/ranger", NULL };
+
+static const char *googletasks[] = { "/usr/lib/brave-bin/brave", "--profile-directory=Default", "--app-id=ffpdhnednbmelagcknnegjemgooenfml", NULL };
 static const char *bpytop[] = { "alacritty", "-e", "bpytop", NULL };
 static const char *spotify_adblock[] = {"/home/aloks/.config/scripts/spotify-adblock", NULL };
 static const char *weatherforecast[] = {"terminator", "-e", "/home/aloks/.config/scripts/weatherforecast.sh; zsh", NULL };
 
-static const char *printscr_full[] = { "/home/aloks/.config/scripts/printscr_full", NULL };
+static const char *printscr_full[] = { "spectacle", NULL };
 static const char *printscr[] = { "/home/aloks/.config/scripts/printscr", NULL };
 static const char *wallchange[] = { "/home/aloks/.config/scripts/wallchange", NULL };
 static const char *lockscreen[] = { "betterlockscreen", "-l", "blur" };
@@ -141,7 +143,9 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,		XK_w,	   spawn,	   {.v = weatherforecast } },
 	{ MODKEY,			XK_e,	   spawn,	   {.v = filemanagercmd } },
 	{ MODKEY,			XK_c,	   spawn,	   {.v = codecmd } },
-	{ MODKEY,			XK_n,	   spawn,	   {.v = plannercmd } },
+	//{ MODKEY,			XK_n,	   spawn,	   {.v = plannercmd } },
+	{ MODKEY,			XK_n,	   spawn,	   {.v = googletasks } },
+	
 	{ MODKEY,			XK_v,	   spawn,	   {.v = volume_control } },
 	{ MODKEY|ShiftMask,		XK_e,	   spawn,	   {.v = ranger } },
 	{ MODKEY|ShiftMask,		XK_t,	   spawn,	   {.v = bpytop } },
