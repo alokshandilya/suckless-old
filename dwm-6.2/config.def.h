@@ -112,7 +112,7 @@ static const char *brdowncmd[] = { "xbacklight", "-dec", "3", NULL };
 
 static const char *browsercmd[] = { "/usr/bin/brave", NULL };
 //static const char *filemanagercmd[] = { "/usr/bin/thunar", NULL };
-static const char *filemanagercmd[] = { "/usr/bin/thunar", NULL };
+static const char *filemanagercmd[] = { "/usr/bin/pcmanfm", NULL };
 static const char *codecmd[] = { "/usr/bin/code", NULL };
 //static const char *plannercmd[] = { "/usr/bin/planner", NULL };
 static const char *volume_control[] = { "/usr/bin/pavucontrol", NULL };
