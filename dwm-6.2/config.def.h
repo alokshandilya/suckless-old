@@ -38,11 +38,11 @@ static const char dmenufont[]       = "Mononoki Nerd Font:size=11:antialias=true
 	     			      /*"Hack:size=11:antialias=true:autohint=true"
 				      "JoyPixels:size=12:antialias=true:autohint=true"
 					*/
-static const char col_gray1[]       = "#282828";	//background color default - dark grey - #222222
+static const char col_gray1[]       = "#282c34";	//background color default - dark grey - #222222
 static const char col_gray2[]       = "#444444";	//default is #444444
 static const char col_gray3[]       = "#E4E4E4";	//color of tags(worksapces) and text on right xsetroot or scipts--default is #bbbbbb
 static const char col_gray4[]       = "#2E3440";	//color of text of active window when opened (in middle of dwmbar) and active tag's font--default is #eeeeee
-static const char col_cyan[]        = "#928374";	//foreground color default - blue - #005577 -- 62679e
+static const char col_cyan[]        = "#61afef";	//foreground color default - blue - #005577 -- 62679e
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
 	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
@@ -50,7 +50,6 @@ static const char *colors[][3]      = {
 };
 
 /* tagging */
-/* static const char *tags[] = { "一", "二", "三", "四", "五", "六", "七", "八", "九" }; */
 /* static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" }; */
 /* static const char *tags[] = { "HOME", "WEB", "MUSIC", "CODE", "EDIT", "GAME", "OFFICE", "MISC", "HMM" }; */
 static const char *tags[] = { "", "", "" , "", "", "", "", "", "" };
@@ -186,7 +185,7 @@ static Key keys[] = {
 	TAGKEYS(                        XK_7,                      6)
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)
-	{ MODKEY|ShiftMask,           	XK_x,      quit,           {0} },
+	{ MODKEY|ControlMask,           	XK_q,      quit,           {0} },
 
 	{ 0, XF86XK_AudioMute, spawn, {.v = mutecmd } },
 	{ 0, XF86XK_AudioLowerVolume, spawn, {.v = voldowncmd } },
