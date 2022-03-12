@@ -27,9 +27,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 #include <unistd.h>
 #include <sys/types.h>
-#include <sys/stat.h>
 #include <sys/wait.h>
 #include <X11/cursorfont.h>
 #include <X11/keysym.h>
@@ -41,6 +41,7 @@
 #include <X11/extensions/Xinerama.h>
 #endif /* XINERAMA */
 #include <X11/Xft/Xft.h>
+#include <X11/XKBlib.h>
 
 #include "drw.h"
 #include "util.h"
@@ -76,7 +77,7 @@
 
 /* enums */
 enum { CurNormal, CurResize, CurMove, CurLast }; /* cursor */
-enum { SchemeNorm, SchemeSel }; /* color schemes */
+enum { SchemeNorm, SchemeSel, SchemeTitle }; /* color schemes */
 enum { NetSupported, NetWMName, NetWMState, NetWMCheck,
        NetSystemTray, NetSystemTrayOP, NetSystemTrayOrientation, NetSystemTrayOrientationHorz,
        NetWMFullscreen, NetActiveWindow, NetWMWindowType,
@@ -106,6 +107,7 @@ typedef struct Client Client;
 struct Client {
 	char name[256];
 	float mina, maxa;
+	float cfact;
 	int x, y, w, h;
 	int oldx, oldy, oldw, oldh;
 	int basew, baseh, incw, inch, maxw, maxh, minw, minh;
@@ -119,6 +121,7 @@ struct Client {
 };
 
 typedef struct {
+	unsigned int npresses;
 	unsigned int mod;
 	KeySym keysym;
 	void (*func)(const Arg *);
@@ -206,6 +209,10 @@ static void grabbuttons(Client *c, int focused);
 static void grabkeys(void);
 static void incnmaster(const Arg *arg);
 static void keypress(XEvent *e);
+static void keypresstimerdispatch(int msduration, int data);
+static void keypresstimerdone(union sigval timer_data);
+static void keypresstimerdonesync(int idx);
+static void keyrelease(XEvent *e);
 static void killclient(const Arg *arg);
 static void manage(Window w, XWindowAttributes *wa);
 static void mappingnotify(XEvent *e);
@@ -220,12 +227,12 @@ static void quit(const Arg *arg);
 static Monitor *recttomon(int x, int y, int w, int h);
 static void removesystrayicon(Client *i);
 static void resize(Client *c, int x, int y, int w, int h, int interact);
+static void resizebarwin(Monitor *m);
 static void resizeclient(Client *c, int x, int y, int w, int h);
 static void resizemouse(const Arg *arg);
 static void resizerequest(XEvent *e);
 static void restack(Monitor *m);
 static void run(void);
-static void runautostart(void);
 static void scan(void);
 static int sendevent(Window w, Atom proto, int m, long d0, long d1, long d2, long d3, long d4);
 static void sendmon(Client *c, Monitor *m);
@@ -234,6 +241,7 @@ static void setfocus(Client *c);
 static void setfullscreen(Client *c, int fullscreen);
 static void setgaps(const Arg *arg);
 static void setlayout(const Arg *arg);
+static void setcfact(const Arg *arg);
 static void setmfact(const Arg *arg);
 static void setup(void);
 static void seturgent(Client *c, int urg);
@@ -246,6 +254,7 @@ static void tagmon(const Arg *arg);
 static void tile(Monitor *);
 static void togglebar(const Arg *arg);
 static void togglefloating(const Arg *arg);
+static void togglefullscr(const Arg *arg);
 static void toggletag(const Arg *arg);
 static void toggleview(const Arg *arg);
 static void unfocus(Client *c, int setfocus);
@@ -274,12 +283,8 @@ static int xerrorstart(Display *dpy, XErrorEvent *ee);
 static void zoom(const Arg *arg);
 
 /* variables */
-static const char autostartblocksh[] = "autostart_blocking.sh";
-static const char autostartsh[] = "autostart.sh";
 static Systray *systray =  NULL;
 static const char broken[] = "broken";
-static const char dwmdir[] = "dwm";
-static const char localshare[] = ".local/share";
 static char stext[256];
 static int screen;
 static int sw, sh;           /* X display screen geometry width, height */
@@ -297,6 +302,7 @@ static void (*handler[LASTEvent]) (XEvent *) = {
 	[Expose] = expose,
 	[FocusIn] = focusin,
 	[KeyPress] = keypress,
+	[KeyRelease] = keyrelease,
 	[MappingNotify] = mappingnotify,
 	[MapRequest] = maprequest,
 	[MotionNotify] = motionnotify,
@@ -304,14 +310,19 @@ static void (*handler[LASTEvent]) (XEvent *) = {
 	[ResizeRequest] = resizerequest,
 	[UnmapNotify] = unmapnotify
 };
-static Atom wmatom[WMLast], netatom[NetLast], xatom[XLast];
+static Atom timeratom, wmatom[WMLast], netatom[NetLast], xatom[XLast];
 static int running = 1;
 static Cur *cursor[CurLast];
 static Clr **scheme;
+static Clr **tagscheme;
 static Display *dpy;
 static Drw *drw;
 static Monitor *mons, *selmon;
 static Window root, wmcheckwin;
+
+static int multikeypendingindex = -1;
+static timer_t multikeypendingtimer = NULL;
+static int multikeyup = 1;
 
 /* configuration, allows nested code to access above variables */
 #include "config.h"
@@ -631,6 +642,12 @@ clientmessage(XEvent *e)
 		}
 		return;
 	}
+
+	if (cme->message_type == timeratom) {
+		keypresstimerdonesync(cme->data.s[0]);
+		return;
+	}
+
 	if (!c)
 		return;
 	if (cme->message_type == netatom[NetWMState]) {
@@ -856,7 +873,7 @@ drawbar(Monitor *m)
 	x = 0;
 	for (i = 0; i < LENGTH(tags); i++) {
 		w = TEXTW(tags[i]);
-		drw_setscheme(drw, scheme[m->tagset[m->seltags] & 1 << i ? SchemeSel : SchemeNorm]);
+		drw_setscheme(drw, (m->tagset[m->seltags] & 1 << i ? tagscheme[i] : scheme[SchemeNorm]));
 		drw_text(drw, x, 0, w, bh, lrpad / 2, tags[i], urg & 1 << i);
 		if (occ & 1 << i)
 			drw_rect(drw, x + boxs, boxs, boxw, boxw,
@@ -870,16 +887,16 @@ drawbar(Monitor *m)
 
 	if ((w = m->ww - tw - stw - x) > bh) {
 		if (m->sel) {
-			drw_setscheme(drw, scheme[m == selmon ? SchemeSel : SchemeNorm]);
+			drw_setscheme(drw, scheme[m == selmon ? SchemeTitle: SchemeNorm]);
 			drw_text(drw, x, 0, w, bh, lrpad / 2, m->sel->name, 0);
 			if (m->sel->isfloating)
 				drw_rect(drw, x + boxs, boxs, boxw, boxw, m->sel->isfixed, 0);
 		} else {
 			drw_setscheme(drw, scheme[SchemeNorm]);
 			drw_rect(drw, x, 0, w, bh, 1, 1);
-		}
-	}
-	drw_map(drw, m->barwin, 0, 0, m->ww - stw, bh);
+        }   
+    }   
+    drw_map(drw, m->barwin, 0, 0, m->ww - stw, bh);
 }
 
 void
@@ -1151,11 +1168,92 @@ keypress(XEvent *e)
 
 	ev = &e->xkey;
 	keysym = XKeycodeToKeysym(dpy, (KeyCode)ev->keycode, 0);
-	for (i = 0; i < LENGTH(keys); i++)
+	for (i = 0; i < LENGTH(keys); i++) {
 		if (keysym == keys[i].keysym
 		&& CLEANMASK(keys[i].mod) == CLEANMASK(ev->state)
-		&& keys[i].func)
-			keys[i].func(&(keys[i].arg));
+		&& keys[i].func) {
+			// E.g. Normal functionality case - npresses 0 == keydown immediate fn
+			if (keys[i].npresses == 0) {
+			  keys[i].func(&(keys[i].arg));
+			  break;
+		  }
+
+			// Multikey functionality - find index of key, set global, & dispatch
+			if (
+			  (multikeypendingindex == -1 && multikeyup && keys[i].npresses == 1) ||
+			  (multikeypendingindex != -1 && keys[multikeypendingindex].npresses + 1 == keys[i].npresses)
+			) {
+				multikeyup = 0;
+				multikeypendingindex = i;
+				keypresstimerdispatch(MULTIKEY_THRESHOLD_MS_PRESS, i);
+				break;
+			}
+		}
+	}
+}
+
+void
+keypresstimerdispatch(int msduration, int data)
+{
+	struct sigevent timer_signal_event;
+	struct itimerspec timer_period;
+	static int multikeypendingtimer_created = 0;
+	// Clear out the old timer if any set,and dispatch new timer
+	if (multikeypendingtimer_created) {
+		timer_delete(multikeypendingtimer);
+	}
+	timer_signal_event.sigev_notify = SIGEV_THREAD;
+	timer_signal_event.sigev_notify_function = keypresstimerdone;
+	timer_signal_event.sigev_value.sival_int = data;
+	timer_signal_event.sigev_notify_attributes = NULL;
+	timer_create(CLOCK_MONOTONIC, &timer_signal_event, &multikeypendingtimer);
+	multikeypendingtimer_created = 1;
+	timer_period.it_value.tv_sec = 0;
+	timer_period.it_value.tv_nsec = msduration * 1000000;
+	timer_period.it_interval.tv_sec = 0;
+	timer_period.it_interval.tv_nsec =  0;
+	timer_settime(multikeypendingtimer, 0, &timer_period, NULL);
+}
+
+void
+keypresstimerdone(union sigval timer_data)
+{
+	XEvent ev;
+	memset(&ev, 0, sizeof ev);
+	ev.xclient.type = ClientMessage;
+	ev.xclient.window = root;
+	ev.xclient.message_type = timeratom;
+	ev.xclient.format = 16;
+	ev.xclient.data.s[0] = ((short) timer_data.sival_int);
+	XSendEvent(dpy, root, False, SubstructureRedirectMask, &ev);
+	XSync(dpy, False);
+}
+
+void
+keypresstimerdonesync(int idx)
+{
+	int i, maxidx;
+	if (keys[idx].npresses == 1 && !multikeyup) {
+		// Dispatch hold key
+		maxidx = -1;
+		for (i = 0; i < LENGTH(keys); i++)
+			if (keys[i].keysym == keys[idx].keysym) maxidx = i;
+		if (maxidx != -1)
+			keypresstimerdispatch(
+				MULTIKEY_THRESHOLD_MS_HOLD - MULTIKEY_THRESHOLD_MS_PRESS,
+				maxidx
+			);
+	} else if (keys[idx].func) {
+		// Run the actual keys' fn
+		keys[idx].func(&(keys[idx].arg));
+		multikeypendingindex = -1;
+	}
+}
+
+void
+keyrelease(XEvent *e)
+{
+	multikeyup = 1;
 }
 
 void
@@ -1189,6 +1287,7 @@ manage(Window w, XWindowAttributes *wa)
 	c->w = c->oldw = wa->width;
 	c->h = c->oldh = wa->height;
 	c->oldbw = wa->border_width;
+	c->cfact = 1.0;
 
 	updatetitle(c);
 	if (XGetTransientForHint(dpy, w, &trans) && (t = wintoclient(trans))) {
@@ -1594,83 +1693,6 @@ run(void)
 }
 
 void
-runautostart(void)
-{
-	char *pathpfx;
-	char *path;
-	char *xdgdatahome;
-	char *home;
-	struct stat sb;
-
-	if ((home = getenv("HOME")) == NULL)
-		/* this is almost impossible */
-		return;
-
-	/* if $XDG_DATA_HOME is set and not empty, use $XDG_DATA_HOME/dwm,
-	 * otherwise use ~/.local/share/dwm as autostart script directory
-	 */
-	xdgdatahome = getenv("XDG_DATA_HOME");
-	if (xdgdatahome != NULL && *xdgdatahome != '\0') {
-		/* space for path segments, separators and nul */
-		pathpfx = ecalloc(1, strlen(xdgdatahome) + strlen(dwmdir) + 2);
-
-		if (sprintf(pathpfx, "%s/%s", xdgdatahome, dwmdir) <= 0) {
-			free(pathpfx);
-			return;
-		}
-	} else {
-		/* space for path segments, separators and nul */
-		pathpfx = ecalloc(1, strlen(home) + strlen(localshare)
-		                     + strlen(dwmdir) + 3);
-
-		if (sprintf(pathpfx, "%s/%s/%s", home, localshare, dwmdir) < 0) {
-			free(pathpfx);
-			return;
-		}
-	}
-
-	/* check if the autostart script directory exists */
-	if (! (stat(pathpfx, &sb) == 0 && S_ISDIR(sb.st_mode))) {
-		/* the XDG conformant path does not exist or is no directory
-		 * so we try ~/.dwm instead
-		 */
-		char *pathpfx_new = realloc(pathpfx, strlen(home) + strlen(dwmdir) + 3);
-		if(pathpfx_new == NULL) {
-			free(pathpfx);
-			return;
-		}
-		pathpfx = pathpfx_new;
-
-		if (sprintf(pathpfx, "%s/.%s", home, dwmdir) <= 0) {
-			free(pathpfx);
-			return;
-		}
-	}
-
-	/* try the blocking script first */
-	path = ecalloc(1, strlen(pathpfx) + strlen(autostartblocksh) + 2);
-	if (sprintf(path, "%s/%s", pathpfx, autostartblocksh) <= 0) {
-		free(path);
-		free(pathpfx);
-	}
-
-	if (access(path, X_OK) == 0)
-		system(path);
-
-	/* now the non-blocking script */
-	if (sprintf(path, "%s/%s", pathpfx, autostartsh) <= 0) {
-		free(path);
-		free(pathpfx);
-	}
-
-	if (access(path, X_OK) == 0)
-		system(strcat(path, " &"));
-
-	free(pathpfx);
-	free(path);
-}
-
-void
 scan(void)
 {
 	unsigned int i, num;
@@ -1821,6 +1843,23 @@ setlayout(const Arg *arg)
 		drawbar(selmon);
 }
 
+void setcfact(const Arg *arg) {
+	float f;
+	Client *c;
+
+	c = selmon->sel;
+
+	if(!arg || !c || !selmon->lt[selmon->sellt]->arrange)
+		return;
+	f = arg->f + c->cfact;
+	if(arg->f == 0.0)
+		f = 1.0;
+	else if(f < 0.25 || f > 4.0)
+		return;
+	c->cfact = f;
+	arrange(selmon);
+}
+
 /* arg > 1.0 will set mfact absolutely */
 void
 setmfact(const Arg *arg)
@@ -1884,11 +1923,16 @@ setup(void)
 	cursor[CurResize] = drw_cur_create(drw, XC_sizing);
 	cursor[CurMove] = drw_cur_create(drw, XC_fleur);
 	/* init appearance */
+	if (LENGTH(tags) > LENGTH(tagsel))
+		die("too few color schemes for the tags");
 	scheme = ecalloc(LENGTH(colors), sizeof(Clr *));
 	for (i = 0; i < LENGTH(colors); i++)
 		scheme[i] = drw_scm_create(drw, colors[i], 3);
 	/* init system tray */
 	updatesystray();
+	tagscheme = ecalloc(LENGTH(tagsel), sizeof(Clr *));
+	for (i = 0; i < LENGTH(tagsel); i++)
+		tagscheme[i] = drw_scm_create(drw, tagsel[i], 2);
 	/* init bars */
 	updatebars();
 	updatestatus();
@@ -1993,9 +2037,15 @@ void
 tile(Monitor *m)
 {
 	unsigned int i, n, h, mw, my, ty;
+	float mfacts = 0, sfacts = 0;
 	Client *c;
 
-	for (n = 0, c = nexttiled(m->clients); c; c = nexttiled(c->next), n++);
+	for (n = 0, c = nexttiled(m->clients); c; c = nexttiled(c->next), n++) {
+		if (n < m->nmaster)
+			mfacts += c->cfact;
+		else
+			sfacts += c->cfact;
+	}
 	if (n == 0)
 		return;
 
@@ -2005,13 +2055,15 @@ tile(Monitor *m)
 		mw = m->ww - m->gappx;
 	for (i = 0, my = ty = m->gappx, c = nexttiled(m->clients); c; c = nexttiled(c->next), i++)
 		if (i < m->nmaster) {
-			h = (m->wh - my) / (MIN(n, m->nmaster) - i) - m->gappx;
+			h = (m->wh - my) * (c->cfact / mfacts) -m ->gappx;
 			resize(c, m->wx + m->gappx, m->wy + my, mw - (2*c->bw) - m->gappx, h - (2*c->bw), 0);
 			my += HEIGHT(c) + m->gappx;
+			mfacts -= c->cfact;
 		} else {
-			h = (m->wh - ty) / (n - i) - m->gappx;
+			h = (m->wh - ty) * (c->cfact / sfacts) - m->gappx;
 			resize(c, m->wx + mw + m->gappx, m->wy + ty, m->ww - mw - (2*c->bw) - 2*m->gappx, h - (2*c->bw), 0);
 			ty += HEIGHT(c) + m->gappx;
+			sfacts -= c->cfact;
 		}
 }
 
@@ -2047,6 +2099,13 @@ togglefloating(const Arg *arg)
 		resize(selmon->sel, selmon->sel->x, selmon->sel->y,
 			selmon->sel->w, selmon->sel->h, 0);
 	arrange(selmon);
+}
+
+void
+togglefullscr(const Arg *arg)
+{
+  if(selmon->sel)
+    setfullscreen(selmon->sel, !selmon->sel->isfullscreen);
 }
 
 void
@@ -2663,6 +2722,7 @@ zoom(const Arg *arg)
 int
 main(int argc, char *argv[])
 {
+	XInitThreads();
 	if (argc == 2 && !strcmp("-v", argv[1]))
 		die("dwm-"VERSION);
 	else if (argc != 1)
@@ -2671,6 +2731,7 @@ main(int argc, char *argv[])
 		fputs("warning: no locale support\n", stderr);
 	if (!(dpy = XOpenDisplay(NULL)))
 		die("dwm: cannot open display");
+	XkbSetDetectableAutoRepeat(dpy, True, NULL);
 	checkotherwm();
 	setup();
 #ifdef __OpenBSD__
@@ -2678,7 +2739,6 @@ main(int argc, char *argv[])
 		die("pledge");
 #endif /* __OpenBSD__ */
 	scan();
-	runautostart();
 	run();
 	cleanup();
 	XCloseDisplay(dpy);
