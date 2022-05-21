@@ -194,8 +194,8 @@ static const char *volupcmd[] = { "amixer", "-q", "set", "Master", "5%+", "unmut
 static const char *voldowncmd[] = { "amixer", "-q", "set", "Master", "5%-", "unmute", NULL };
 //static const char *miccmd[] = { "amixer", "set", "Capture", "toggle", NULL };
 
-static const char *brupcmd[] = { "xbacklight", "-inc", "3", NULL };
-static const char *brdowncmd[] = { "xbacklight", "-dec", "3", NULL };
+static const char *brupcmd[] = { "brightnessctl", "s", "3%+", NULL };
+static const char *brdowncmd[] = { "brightnessctl", "s", "3%-", NULL };
 
 static const char *browsercmd[] = { "/usr/bin/brave", NULL };
 static const char *filemanagercmd[] = { "/usr/bin/thunar", NULL };
