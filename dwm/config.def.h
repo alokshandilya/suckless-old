@@ -11,7 +11,7 @@
 
 // appearance
 static const unsigned int borderpx  		= 2;        // border pixel of windows
-static const unsigned int gappx     		= 10;       // gaps between windows
+static const unsigned int gappx     		= 7;       // gaps between windows
 static const unsigned int snap      		= 32;       // snap pixel
 static const unsigned int systraypinning 	= 0;   		// 0: sloppy systray follows selected monitor, >0: pin systray to monitor X
 static const unsigned int systrayonleft 	= 0;   		// 0: systray in the right corner, >0: systray on left of status text
@@ -90,58 +90,6 @@ static const char *colors[][3] = {
 // static const char *tags[] = { "", "", "", " ", "", "", "", "", "", "", "", "", "", "" };
 static const char *tags[] = { "", "", "", "", "", "", "", ""};
 //static const char *tags[] = { "", "", "", "", "", "", "", "", "" };
-
-// tagsel colors [nord] 
-// static const char *tagsel[][2] = {
-//     { "#2E3440", "#5E81AC" },
-//     { "#2E3440", "#BF616A" },
-//     { "#2E3440", "#EBCB8B" },
-//     { "#2E3440", "#A3BE8C" },
-//     { "#2E3440", "#B48EAD" },
-//     { "#2E3440", "#D08770" },
-//     { "#2E3440", "#5E81AC" },
-//     { "#D8DEE9", "#BF616A" },
-//     { "#2E3440", "#A3BE8C" },
-// };
-
-// tagsel colors [solarized] 
-// static const char *tagsel[][2] = {
-//     { "#002b36", "#2AA198" },
-//     { "#002b36", "#268BD2" },
-//     { "#EEE8D5", "#B58900" },
-//     { "#002b36", "#859900" },
-//     { "#002b36", "#6C71C4" },
-//     { "#002b36", "#CB4B16" },
-//     { "#002b36", "#859900" },
-//     { "#EEE8D5", "#DC322F" },
-//     { "#002b36", "#2AA198" },
-// };
-
-// tagsel colors [gruvbox] 
-static const char *tagsel[][2] = {
-	{ "#1d2021", "#458588" },
-	{ "#1d2021", "#427b58" },
-	{ "#fbf1c7", "#8f3f71" },
-	{ "#1d2021", "#98971a" },
-	{ "#1d2021", "#689d6a" },
-	{ "#1d2021", "#458588" },
-	{ "#1d2021", "#427b58" },
-	{ "#fbf1c7", "#8f3f71" },
-	{ "#1d2021", "#98971a" },
-};
-
-// tagsel colors [dracula] 
-// static const char *tagsel[][2] = {
-//     { "#282a36", "#ff79c6" },
-//     { "#282a36", "#6272a4" },
-//     { "#282a36", "#50fa7b" },
-//     { "#282a36", "#bd93f9" },
-//     { "#fbf1c7", "#ff5555" },
-//     { "#282a36", "#bd93f9" },
-//     { "#282a36", "#50fa7b" },
-//     { "#282a36", "#ff79c6" },
-//     { "#282a36", "#ffb86c" },
-// };
 
 static const Rule rules[] = {
 	/* xprop(1):
