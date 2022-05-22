@@ -19,7 +19,7 @@ static const unsigned int systrayspacing 	= 2;   		// systray spacing
 static const int systraypinningfailfirst 	= 1;   		// 1: if pinning fails, display systray on the first monitor, False: display systray on the last monitor
 static const int showsystray        		= 1;     	// 0 means no systray
 static const int showbar            		= 1;        // 0 means no bar
-static const int topbar             		= 1;        // 0 means bottom bar
+static const int topbar             		= 0;        // 0 means bottom bar
 
 static const char *fonts[]     		= { "JetBrainsMono Nerd Font:style:medium:size=11",
                                   		"JoyPixels:size=12:antialias=true:autohint=true"};
@@ -213,7 +213,7 @@ static const char *bpytop[] = { "st", "-e", "bpytop", NULL };
 
 static const char *printscr_full[] = { "spectacle", NULL };
 static const char *printscr[] = { "/home/aloks/.config/scripts/printscr", NULL };
-static const char *wallchange[] = { "/home/aloks/.config/scripts/wallchange", NULL };
+static const char *wallchange[] = { "variety", "-n", NULL };
 static const char *lockscreen[] = { "betterlockscreen", "-l", "blur", NULL };
 static const char *poweroffcmd[] = { "poweroff", NULL };
 static const char *rebootcmd[] =  { "systemctl", "reboot", NULL };
