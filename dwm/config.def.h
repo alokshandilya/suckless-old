@@ -136,6 +136,8 @@ static const char *roficmd[] = { "rofi", "-show", "drun", NULL };
 static const char *termcmd[]  = { "st", NULL };
 //static const char *termcmd[]  = { "kitty", NULL };
 static const char *termcmdalt[]  = { "alacritty", NULL };
+static const char scratchpadname[] = "Alok's Playing Area-51 🏏";
+static const char *scratchpadcmd[] = { "st", "-t", scratchpadname, "-g", "120x33", NULL };
 
 static const char *mutecmd[] = { "amixer", "-q", "set", "Master", "toggle", NULL };
 static const char *volupcmd[] = { "amixer", "-q", "set", "Master", "5%+", "unmute", NULL };
@@ -175,6 +177,7 @@ static Key keys[] = {
 	{ 2,			MODKEY,                     XK_d,      spawn,      {.v = dmenucmd } },
 	{ 1,			MODKEY,		                XK_Return, spawn,      {.v = termcmd } },
 	{ 2,			MODKEY,		                XK_Return, spawn,      {.v = termcmdalt } },
+	{ 0,      		MODKEY,                   XK_grave,  togglescratch,  {.v = scratchpadcmd } },
 	{ 1,			MODKEY,						XK_d,	   spawn,	   {.v = roficmd } },
 	{ 1,			MODKEY,						XK_w,	   spawn,	   {.v = browsercmd } },
 	{ 1,			MODKEY,						XK_e,	   spawn,	   {.v = filemanagercmd } },
