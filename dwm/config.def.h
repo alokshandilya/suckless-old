@@ -147,7 +147,7 @@ static const char *voldowncmd[] = { "amixer", "-q", "set", "Master", "5%-", "unm
 static const char *brupcmd[] = { "brightnessctl", "s", "3%+", NULL };
 static const char *brdowncmd[] = { "brightnessctl", "s", "3%-", NULL };
 
-static const char *browsercmd[] = { "/usr/bin/brave", NULL };
+static const char *browsercmd[] = { "./.config/scripts/brave-launcher", NULL };
 static const char *filemanagercmd[] = { "/usr/bin/thunar", NULL };
 // static const char *filemanagercmd[] = { "/usr/bin/pcmanfm", NULL };
 //static const char *filemanagercmd[] = { "/usr/bin/dolphin", NULL };
