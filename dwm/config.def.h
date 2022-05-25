@@ -186,7 +186,7 @@ static Key keys[] = {
 	//{ 0,			MODKEY,						XK_n,	   spawn,	   {.v = googletasks } },
 
 	{ 1,			MODKEY|ShiftMask,			XK_d,	   spawn,	   {.v = nvimcmd } },
-	{ 2,			MODKEY|ShiftMask,			XK_d,	   spawn,	   SHCMD("emacsclient -c -a 'emacs' --eval '(dashboard-refresh-buffer)'") },
+	{ 2,			MODKEY|ShiftMask,			XK_d,	   spawn,	   SHCMD("emacsclient -c -a 'emacs'") },
 	{ 2,			MODKEY,						XK_v,	   spawn,	   {.v = volume_control } },
 	{ 2,			MODKEY,						XK_e,	   spawn,	   {.v = ranger } },
 	{ 0,			MODKEY|ShiftMask,			XK_t,	   spawn,	   {.v = bpytop } },

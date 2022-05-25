@@ -6,7 +6,7 @@ dwm is an extremely fast, small, and dynamic window manager for X.
 
 ## Requirements ✏️
 
-- All Requirements will be handled by the `script` assuming you run `Arch Linux` or it's derivatives.
+- All Requirements will be handle by the `script` assuming you run `Arch Linux` or it's derivatives.
 - In order to build dwm you need the Xlib header files.
 - [***libxft-bgra***](https://aur.archlinux.org/packages/libxft-bgra-git)
 for coloured emojis in suckless utilities.
