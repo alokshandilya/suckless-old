@@ -19,7 +19,7 @@ static const unsigned int systrayspacing 	= 2;   		// systray spacing
 static const int systraypinningfailfirst 	= 1;   		// 1: if pinning fails, display systray on the first monitor, False: display systray on the last monitor
 static const int showsystray        		= 1;     	// 0 means no systray
 static const int showbar            		= 1;        // 0 means no bar
-static const int topbar             		= 0;        // 0 means bottom bar
+static const int topbar             		= 1;        // 0 means bottom bar
 
 static const char *fonts[]     		= { "JetBrainsMono Nerd Font:style:medium:size=11",
                                   		"JoyPixels:size=12:antialias=true:autohint=true"};
@@ -137,7 +137,7 @@ static const char *termcmd[]  = { "st", NULL };
 //static const char *termcmd[]  = { "kitty", NULL };
 static const char *termcmdalt[]  = { "alacritty", NULL };
 static const char scratchpadname[] = "Alok's Playing Area-51 🏏";
-static const char *scratchpadcmd[] = { "st", "-t", scratchpadname, "-g", "120x33", NULL };
+static const char *scratchpadcmd[] = { "st", "-t", scratchpadname, "-g", "110x30", NULL };
 
 static const char *mutecmd[] = { "amixer", "-q", "set", "Master", "toggle", NULL };
 static const char *volupcmd[] = { "amixer", "-q", "set", "Master", "5%+", "unmute", NULL };
