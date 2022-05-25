@@ -6,20 +6,22 @@ dwm is an extremely fast, small, and dynamic window manager for X.
 
 ## Requirements ✏️
 
-- All Requirements will be handled by the `script`
+- All Requirements will be handled by the `script` assuming you run `Arch Linux` or it's derivatives.
 - In order to build dwm you need the Xlib header files.
 - [***libxft-bgra***](https://aur.archlinux.org/packages/libxft-bgra-git)
 for coloured emojis in suckless utilities.
 
-## Screenshots
+## Screenshots 🖼️
 
-![Screenshot 1](screenshots/nord-1.png "Nord 1")
+![Screenshot 1](screenshots/1.png "Screenshot 1")
 
-![Screenshot 2](screenshots/nord-2.png "Nord 2")
+![Screenshot 2](screenshots/2.png "Screenshot 2")
 
-![Screenshot 3](screenshots/gruvbox-1.png "Gruvbox 1")
+![Screenshot 3](screenshots/3.png "Screenshot 3")
 
-## Patches
+![Screenshot 3](screenshots/4.png "Screenshot 4")
+
+## Patches 🧰
 
 - ~~notitle~~
 - alwayscenter
@@ -39,6 +41,6 @@ for coloured emojis in suckless utilities.
 - scratchpad
 - ***maybe more I don't remember exactly...***
 
-## Installation
+## Installation 🎙️
 
 - `git clone` this repo and run `install.sh` ...
