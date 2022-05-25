@@ -5,16 +5,18 @@
 ########################################
 if ! command -v paru &> /dev/null
 then
+    printf "\n"
     printf "########################################\n"
     printf "##### Installing paru (AUR Helper) #####\n"
-    printf "########################################\n"
+    printf "########################################\n\n"
     git clone https://aur.archlinux.org/paru-bin.git
     cd paru-bin
     makepkg -si
 else
+    printf "\n"
     printf "#######################################\n"
     printf "###### paru is already installed ######\n"
-    printf "#######################################\n\n"
+    printf "#######################################\n"
 fi
 
 printf "\n"
@@ -38,14 +40,14 @@ printf "#########################################\n"
 printf "##### Installing fonts and packages #####\n"
 printf "#########################################\n\n"
 paru -S libxft-bgra nerd-fonts-jetbrains-mono ttf-fira-code nerd-fonts-fira-code
-paru -S wget bat dash powerpill
+paru -S wget bat dash
 
-paru -S lxappearance numlockx copyq conky feh bpytop ranger rofi nitrogen capitaine-cursors kvantum-qt5 kvantum-theme-materia qt5ct dunst arc-gtk-theme arc-icon-theme thunar lightdm lightdm-webkit2-greeter lightdm-webkit-theme-litarvan lightdm-gtk-greeter
+paru -S lxappearance numlockx copyq conky feh bpytop ranger rofi nitrogen kvantum-qt5 kvantum-theme-materia qt5ct dunst thunar lightdm lightdm-webkit2-greeter lightdm-webkit-theme-litarvan lightdm-gtk-greeter
 
 sudo systemctl enable lightdm
 
 # polkit
-paru -S gnome-keyring 
+paru -S gnome-keyring lxsession
 
 
 # Lightdm Entry
@@ -77,6 +79,7 @@ else
     echo "Exec=~/.dwm/autostart" | sudo tee -a /usr/share/xsessions/dwm.desktop
 fi
 
+printf "\n"
 printf "##########################################\n"
 printf "###### dwm is successfully installed######\n"
 printf "##########################################\n\n"
