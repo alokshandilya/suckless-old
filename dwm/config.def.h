@@ -11,7 +11,7 @@
 
 // appearance
 static const unsigned int borderpx  		= 2;        // border pixel of windows
-static const unsigned int gappx     		= 7;       // gaps between windows
+static const unsigned int gappx     		= 10;       // gaps between windows
 static const unsigned int snap      		= 32;       // snap pixel
 static const unsigned int systraypinning 	= 0;   		// 0: sloppy systray follows selected monitor, >0: pin systray to monitor X
 static const unsigned int systrayonleft 	= 0;   		// 0: systray in the right corner, >0: systray on left of status text
@@ -40,14 +40,14 @@ static const char dmenufont[]       =  "JetBrainsMono Nerd Font:style:medium:siz
 // static const char col_titletext[]	= "#5E81AC";
 
 // solarized colorscheme
-// static const char col_gray1[]       = "#0D3642";
-// static const char col_gray2[]       = "#0D3642";
-// static const char col_gray3[]       = "#EEE8D5";
-// static const char col_gray4[]       = "#0D3642";
-// static const char col_border[]      = "#46d9ff";
-// static const char col_cyan[]        = "#2AA198";	// used for dmenu too
-// static const char col_midbar[]		= "#0D3642";
-// static const char col_titletext[]	= "#2AA198";
+/* static const char col_gray1[]       = "#002A36"; */
+/* static const char col_gray2[]       = "#0D3642"; */
+/* static const char col_gray3[]       = "#EEE8D5"; */
+/* static const char col_gray4[]       = "#0D3642"; */
+/* static const char col_border[]      = "#46d9ff"; */
+/* static const char col_cyan[]        = "#2AA198";	// used for dmenu too */
+/* static const char col_midbar[]		= "#0D3642"; */
+/* static const char col_titletext[]	= "#2AA198"; */
 
 // one dark colorscheme
 // static const char col_gray1[]       = "#1e222a";
@@ -59,7 +59,7 @@ static const char dmenufont[]       =  "JetBrainsMono Nerd Font:style:medium:siz
 // static const char col_midbar[]		= "#61afef";
 
 // gruvbox colorscheme
-static const char col_gray1[]       = "#1b2021";
+static const char col_gray1[]       = "#282828";
 static const char col_gray2[]       = "#504945";
 static const char col_gray3[]       = "#ebdbb2";
 static const char col_gray4[]       = "#1d2021";
@@ -137,7 +137,7 @@ static const char *termcmd[]  = { "st", NULL };
 //static const char *termcmd[]  = { "kitty", NULL };
 static const char *termcmdalt[]  = { "alacritty", NULL };
 static const char scratchpadname[] = "Alok's Playing Area-51 🏏";
-static const char *scratchpadcmd[] = { "st", "-t", scratchpadname, "-g", "110x30", NULL };
+static const char *scratchpadcmd[] = { "st", "-t", scratchpadname, "-g", "135x34", NULL };
 
 static const char *mutecmd[] = { "amixer", "-q", "set", "Master", "toggle", NULL };
 static const char *volupcmd[] = { "amixer", "-q", "set", "Master", "5%+", "unmute", NULL };
@@ -163,7 +163,6 @@ static const char *bpytop[] = { "st", "-e", "bpytop", NULL };
 
 static const char *printscr_full[] = { "spectacle", NULL };
 static const char *printscr[] = { "/home/aloks/.config/scripts/printscr", NULL };
-static const char *wallchange[] = { "variety", "-n", NULL };
 static const char *lockscreen[] = { "betterlockscreen", "-l", "blur", NULL };
 static const char *poweroffcmd[] = { "poweroff", NULL };
 static const char *rebootcmd[] =  { "systemctl", "reboot", NULL };
@@ -185,8 +184,8 @@ static Key keys[] = {
 	//{ 0,			MODKEY,						XK_n,	   spawn,	   {.v = plannercmd } },
 	//{ 0,			MODKEY,						XK_n,	   spawn,	   {.v = googletasks } },
 
+	{ 0,			MODKEY|ShiftMask,			XK_d,	   spawn,	   SHCMD("emacsclient -c -a 'emacs'") },
 	{ 1,			MODKEY|ShiftMask,			XK_d,	   spawn,	   {.v = nvimcmd } },
-	{ 2,			MODKEY|ShiftMask,			XK_d,	   spawn,	   SHCMD("emacsclient -c -a 'emacs'") },
 	{ 2,			MODKEY,						XK_v,	   spawn,	   {.v = volume_control } },
 	{ 2,			MODKEY,						XK_e,	   spawn,	   {.v = ranger } },
 	{ 0,			MODKEY|ShiftMask,			XK_t,	   spawn,	   {.v = bpytop } },
@@ -194,7 +193,7 @@ static Key keys[] = {
 	//{ 0,			MODKEY|ShiftMask,			XK_m,	   spawn,	   {.v = email_client } },
 	{ 2,			MODKEY,						XK_s,	   spawn,	   {.v = lockscreen } },
 
-	{ 2,			MODKEY,                     XK_b,      togglebar,      {0} },
+	{ 0,			MODKEY,                     XK_b,      togglebar,      {0} },
 	{ 0,			MODKEY,                     XK_j,      focusstack,     {.i = +1 } },
 	{ 0,			MODKEY,                     XK_k,      focusstack,     {.i = -1 } },
 	{ 0,			MODKEY,                     XK_i,      incnmaster,     {.i = +1 } },
@@ -250,7 +249,7 @@ static Key keys[] = {
 	{ 0,	MODKEY|ControlMask,		XK_x,		spawn,			{.v = brupcmd} },
 	{ 0,	MODKEY|ControlMask,		XK_z,		spawn,			{.v = brdowncmd } },
 	
-	{ 0,	MODKEY,					XK_F2,	   spawn,	   {.v = wallchange} },	
+	{ 0,	MODKEY,					XK_F2,	   spawn,	   SHCMD("feh --bg-fill -zr ~/Pictures/wallpapers") },
 	{ 0,	0,						XK_Print,  spawn,	   {.v = printscr_full} },
 	{ 0,	ShiftMask,				XK_Print,  spawn,	   {.v = printscr} },
 	{ 2,	MODKEY|ControlMask,		XK_q,	   spawn,	   {.v = poweroffcmd} },	
