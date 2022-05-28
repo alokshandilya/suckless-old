@@ -50,7 +50,7 @@ sudo systemctl enable lightdm
 paru -S gnome-keyring lxsession
 
 
-# Lightdm Entry
+# lightdm entry
 printf "\n"
 printf "##########################################\n"
 printf "##### Creating desktop entry for dwm #####\n"

@@ -10,21 +10,21 @@
 #include <X11/XF86keysym.h>
 
 // appearance
-static const unsigned int borderpx  		= 2;        // border pixel of windows
-static const unsigned int gappx     		= 10;       // gaps between windows
-static const unsigned int snap      		= 32;       // snap pixel
-static const unsigned int systraypinning 	= 0;   		// 0: sloppy systray follows selected monitor, >0: pin systray to monitor X
-static const unsigned int systrayonleft 	= 0;   		// 0: systray in the right corner, >0: systray on left of status text
-static const unsigned int systrayspacing 	= 2;   		// systray spacing
-static const int systraypinningfailfirst 	= 1;   		// 1: if pinning fails, display systray on the first monitor, False: display systray on the last monitor
-static const int showsystray        		= 1;     	// 0 means no systray
-static const int showbar            		= 1;        // 0 means no bar
-static const int topbar             		= 1;        // 0 means bottom bar
+static const unsigned int borderpx          = 2;        // border pixel of windows
+static const unsigned int gappx             = 10;       // gaps between windows
+static const unsigned int snap              = 32;       // snap pixel
+static const unsigned int systraypinning    = 0;   		// 0: sloppy systray follows selected monitor, >0: pin systray to monitor X
+static const unsigned int systrayonleft     = 0;   		// 0: systray in the right corner, >0: systray on left of status text
+static const unsigned int systrayspacing    = 2;   		// systray spacing
+static const int systraypinningfailfirst    = 1;   		// 1: if pinning fails, display systray on the first monitor, False: display systray on the last monitor
+static const int showsystray                = 1;     	// 0 means no systray
+static const int showbar                    = 1;        // 0 means no bar
+static const int topbar                     = 1;        // 0 means bottom bar
 
-static const char *fonts[]     		= { "JetBrainsMono Nerd Font:style:medium:size=11",
-                                  		"JoyPixels:size=12:antialias=true:autohint=true"};
+static const char *fonts[]     		= { "FiraCode Nerd Font:style:medium:size=10",
+                                  		"Twemoji:size=12:antialias=true:autohint=true"};
 
-static const char dmenufont[]       =  "JetBrainsMono Nerd Font:style:medium:size=11";
+static const char dmenufont[]       =  "FiraCode Nerd Font:style:medium:size=10";
 										// "Hack:size=11:antialias=true:autohint=true",
 										// "JoyPixels:size=12:antialias=true:autohint=true"
 
@@ -69,14 +69,14 @@ static const char col_midbar[]		= "#1d2021";
 static const char col_titletext[]	= "#458588";
 
 // dracula colorscheme
-// static const char col_gray1[]       = "#282a36";
-// static const char col_gray2[]       = "#44475a";
-// static const char col_gray3[]       = "#f8f8f2";
-// static const char col_gray4[]       = "#282a36";
-// static const char col_border[]      = "#bd93f9";
-// static const char col_cyan[]        = "#8be9fd";	// used for dmenu too
-// static const char col_midbar[]		= "#282a36";
-// static const char col_titletext[]	= "#bd93f9";
+/* static const char col_gray1[]       = "#282a36"; */
+/* static const char col_gray2[]       = "#44475a"; */
+/* static const char col_gray3[]       = "#f8f8f2"; */
+/* static const char col_gray4[]       = "#282a36"; */
+/* static const char col_border[]      = "#8be9fd"; */
+/* static const char col_cyan[]        = "#bd93f9";	// used for dmenu too */
+/* static const char col_midbar[]		= "#282a36"; */
+/* static const char col_titletext[]	= "#bd93f9"; */
 
 static const char *colors[][3] = {
 	/*               fg					bg				border  */ 
@@ -87,8 +87,8 @@ static const char *colors[][3] = {
 
 // tagging
 // static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
-// static const char *tags[] = { "", "", "", " ", "", "", "", "", "", "", "", "", "", "" };
-static const char *tags[] = { "", "", "", "", "", "", "", ""};
+// static const char *tags[] = { "", "", "", " ", "", "", "", "", "", "", "", "", "", "" };
+static const char *tags[] = { "", "", "", "", "", "嗢", "", "", ""};
 //static const char *tags[] = { "", "", "", "", "", "", "", "", "" };
 
 static const Rule rules[] = {
@@ -97,12 +97,14 @@ static const Rule rules[] = {
 	 *	WM_NAME(STRING) = title
 	 */
 	/* class     		 	instance    title       tags mask     isfloating   monitor */
-	{ "Gimp",     		 	NULL,       NULL,       0,            1,           0 },
-//	{ "Brave-browser",  	NULL,       NULL,       1 << 0,       0,           0 },
-//	{ "Code",    	   	 	NULL,	    NULL,		1 << 1,       0,	       0 },
-//	{ "jetbrains-studio", 	NULL,	    NULL,		1 << 1,       0,  	       0 },
-//	{ "Spotify",  	 	 	NULL,	    NULL,       1 << 3,       0,	       0 },
-	
+	{ "Gimp",               NULL,       NULL,       1 << 5,       0,           0 },
+	{ "firefox",            NULL,       NULL,       1 << 0,       0,           0 },
+	{ "Brave-browser",      NULL,       NULL,       1 << 0,       0,           0 },
+	{ "Code",               NULL,	    NULL,		1 << 1,       0,	       0 },
+	{ "jetbrains-idea-ce",  NULL,	    NULL,		1 << 1,       0,  	       0 },
+	{ "Emacs",              NULL,	    NULL,		1 << 1,       0,  	       0 },
+	//{ "St",                 NULL,	    NULL,		1 << 1,       0,  	       0 },
+	{ "GitHub Desktop",     NULL,       NULL,       1 << 2,       0,           0 },
 };
 
 /* layout(s) */
@@ -144,8 +146,8 @@ static const char *volupcmd[] = { "amixer", "-q", "set", "Master", "5%+", "unmut
 static const char *voldowncmd[] = { "amixer", "-q", "set", "Master", "5%-", "unmute", NULL };
 //static const char *miccmd[] = { "amixer", "set", "Capture", "toggle", NULL };
 
-static const char *brupcmd[] = { "brightnessctl", "s", "3%+", NULL };
-static const char *brdowncmd[] = { "brightnessctl", "s", "3%-", NULL };
+static const char *brupcmd[] = { "brightnessctl", "s", "1%+", NULL };
+static const char *brdowncmd[] = { "brightnessctl", "s", "1%-", NULL };
 
 static const char *browsercmd[] = { "./.config/scripts/brave-launcher", NULL };
 static const char *filemanagercmd[] = { "/usr/bin/thunar", NULL };
@@ -184,7 +186,7 @@ static Key keys[] = {
 	//{ 0,			MODKEY,						XK_n,	   spawn,	   {.v = plannercmd } },
 	//{ 0,			MODKEY,						XK_n,	   spawn,	   {.v = googletasks } },
 
-	{ 0,			MODKEY|ShiftMask,			XK_d,	   spawn,	   SHCMD("emacsclient -c -a 'emacs'") },
+	{ 0,			MODKEY|ShiftMask,			XK_d,	   spawn,	   SHCMD("emacsclient -c -a 'emacs' --eval '(dashboard-refresh-buffer)'") },
 	{ 1,			MODKEY|ShiftMask,			XK_d,	   spawn,	   {.v = nvimcmd } },
 	{ 2,			MODKEY,						XK_v,	   spawn,	   {.v = volume_control } },
 	{ 2,			MODKEY,						XK_e,	   spawn,	   {.v = ranger } },

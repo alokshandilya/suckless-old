@@ -2,26 +2,14 @@
 // recompile using the make command.
 static const Block blocks[] = {
     /*Icon*/ /*Command*/ /*Update Interval*/ /*Update Signal*/
-    // {" 🐧 ", "$HOME/.config/scripts/kernel", 360, 2},
-
-    // {" ⛅ ", "/home/aloks/.config/scripts/weather",	60, 1},
-
-    // {"  ", "$HOME/.config/scripts/upt", 60, 2},
-    {"🔺 ", "$HOME/.config/scripts/upt", 60, 2},
-
-    // {" 📦 ", "$HOME/.config/scripts/pacupdate",		360, 9},
-
+    {" 🔺 ", "$HOME/.config/scripts/upt", 60, 2},
+    {" 📦 ", "$HOME/.config/scripts/pacupdate", 360, 9},
+    {" ⛅ ", "/home/aloks/.config/scripts/weather", 60, 1},
+    {" 🐧 ", "$HOME/.config/scripts/kernel", 360, 2},
     {" 💻 ", "$HOME/.config/scripts/memory", 6, 1},
-    // {" ", "$HOME/.config/scripts/memory", 6, 1},
-
     {" 🔋 ", "$HOME/.config/scripts/battery", 150, 1},
-    // {"B ", "$HOME/.config/scripts/battery", 150, 1},
-
     {" 🔊 ", "$HOME/.config/scripts/volume", 2, 10},
-    // {"V ", "$HOME/.config/scripts/volume", 2, 10},
-
     {" 🕑 ", "$HOME/.config/scripts/clock", 5, 0},
-    // {" ", "$HOME/.config/scripts/clock", 5, 0},
 
 };
 
