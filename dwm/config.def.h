@@ -60,14 +60,24 @@ static const char dmenufont[]       =  "FiraCode Nerd Font:style:medium:size=10"
 // static const char col_midbar[]		= "#61afef";
 
 // gruvbox colorscheme
-static const char col_gray1[]       = "#282828";
+/* static const char col_gray1[]       = "#1d2021"; */
+/* static const char col_gray2[]       = "#504945"; */
+/* static const char col_gray3[]       = "#ebdbb2"; */
+/* static const char col_gray4[]       = "#1d2021"; */
+/* static const char col_border[]      = "#46d9ff"; */
+/* static const char col_cyan[]        = "#458588";	// used for dmenu too */
+/* static const char col_midbar[]		= "#1d2021"; */
+/* static const char col_titletext[]	= "#458588"; */
+
+// gruvbox-material colorscheme
+static const char col_gray1[]       = "#1d2021";
 static const char col_gray2[]       = "#504945";
-static const char col_gray3[]       = "#ebdbb2";
+static const char col_gray3[]       = "#D3BD97";
 static const char col_gray4[]       = "#1d2021";
-static const char col_border[]      = "#46d9ff";
-static const char col_cyan[]        = "#458588";	// used for dmenu too
+static const char col_border[]      = "#A8B565";
+static const char col_cyan[]        = "#EA6962";	// used for dmenu too
 static const char col_midbar[]		= "#1d2021";
-static const char col_titletext[]	= "#458588";
+static const char col_titletext[]	= "#E6894E";
 
 // dracula colorscheme
 /* static const char col_gray1[]       = "#282a36"; */
@@ -118,11 +128,14 @@ static const float mfact     = 0.55; /* factor of master area size [0.05..0.95] 
 static const int nmaster     = 1;    /* number of clients in master area */
 static const int resizehints = 1;    /* 1 means respect size hints in tiled resizals */
 
+#include "fibonacci.c"
 static const Layout layouts[] = {
 	/* symbol     arrange function */
 	{ "[]=",      tile },    /* first entry is default */
 	{ "><>",      NULL },    /* no layout function means floating behavior */
 	{ "[M]",      monocle },
+ 	{ "[@]",      spiral },
+ 	{ "[\\]",      dwindle },
 };
 
 /* key definitions */
@@ -219,6 +232,8 @@ static Key keys[] = {
 	{ 0,			MODKEY,                     XK_t,      setlayout,      {.v = &layouts[0]} },
 	{ 1,			MODKEY,                     XK_f,      setlayout,      {.v = &layouts[1]} },
 	{ 0,			MODKEY,                     XK_m,      setlayout,      {.v = &layouts[2]} },
+	{ 0,            MODKEY,                     XK_r,      setlayout,      {.v = &layouts[3]} },
+	{ 0,            MODKEY|ShiftMask,           XK_r,      setlayout,      {.v = &layouts[4]} },
 	{ 0,			MODKEY,                     XK_space,  setlayout,      {0} },
 	{ 0,			MODKEY|ShiftMask,           XK_space,  togglefloating, {0} },
 	{ 2,			MODKEY,			            XK_f,      togglefullscr,  {0} },

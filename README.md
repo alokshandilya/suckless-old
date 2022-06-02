@@ -24,6 +24,7 @@ for coloured emojis in suckless utilities.
 ## Patches 🧰
 
 - ~~notitle~~
+- fibonacci
 - alwayscenter
 - underline
 - fullgaps
