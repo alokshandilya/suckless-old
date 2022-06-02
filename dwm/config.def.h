@@ -1,7 +1,7 @@
 // See LICENSE file for copyright and license details.
-
+//
 //              Patched by - Alok Shandilya
-//   
+//
 //    ▄▀█ █░░ █▀█ █▄▀   █▀ █░█ ▄▀█ █▄░█ █▀▄ █ █░░ █▄█ ▄▀█
 //    █▀█ █▄▄ █▄█ █░█   ▄█ █▀█ █▀█ █░▀█ █▄▀ █ █▄▄ ░█░ █▀█
 //
@@ -22,7 +22,7 @@ static const int showbar                    = 1;        // 0 means no bar
 static const int topbar                     = 1;        // 0 means bottom bar
 
 static const char *fonts[]     		= { "FiraCode Nerd Font:style:medium:size=10",
-                                  		"Twemoji:size=12:antialias=true:autohint=true"};
+                                  		"Twemoji:size=10:antialias=true:autohint=true"};
 
 static const char dmenufont[]       =  "FiraCode Nerd Font:style:medium:size=10";
 										// "Hack:size=11:antialias=true:autohint=true",
@@ -40,7 +40,8 @@ static const char dmenufont[]       =  "FiraCode Nerd Font:style:medium:size=10"
 // static const char col_titletext[]	= "#5E81AC";
 
 // solarized colorscheme
-/* static const char col_gray1[]       = "#002A36"; */
+//static const char col_gray1[]       = "#002A36";
+/* static const char col_gray1[]       = "##002732"; */
 /* static const char col_gray2[]       = "#0D3642"; */
 /* static const char col_gray3[]       = "#EEE8D5"; */
 /* static const char col_gray4[]       = "#0D3642"; */
@@ -79,7 +80,7 @@ static const char col_titletext[]	= "#458588";
 /* static const char col_titletext[]	= "#bd93f9"; */
 
 static const char *colors[][3] = {
-	/*               fg					bg				border  */ 
+	/*               fg					bg				border  */
 	[SchemeNorm]	= { col_gray3,		col_gray1,		col_gray2 },
 	[SchemeSel]		= { col_gray4,		col_cyan,		col_border },
 	[SchemeTitle]	= { col_titletext,	col_midbar,		col_cyan  },
@@ -88,8 +89,13 @@ static const char *colors[][3] = {
 // tagging
 // static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
 // static const char *tags[] = { "", "", "", " ", "", "", "", "", "", "", "", "", "", "" };
-static const char *tags[] = { "", "", "", "", "", "嗢", "", "", ""};
+static const char *tags[] = { "", "", "", "", "", "嗢", "", "", ""};
 //static const char *tags[] = { "", "", "", "", "", "", "", "", "" };
+
+static const unsigned int ulinepad	= 5;	/* horizontal padding between the underline and tag */
+static const unsigned int ulinestroke	= 2;	/* thickness / height of the underline */
+static const unsigned int ulinevoffset	= 0;	/* how far above the bottom of the bar the line should appear */
+static const int ulineall 		= 0;	/* 1 to show underline on all tags, 0 for just the active ones */
 
 static const Rule rules[] = {
 	/* xprop(1):
@@ -228,7 +234,7 @@ static Key keys[] = {
 	{ 0,			MODKEY|ShiftMask,           XK_equal,  setgaps,        {.i = 0  } },
 
 	{ 1,			MODKEY|ControlMask,         XK_q,      quit,           {0} },
-	
+
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)
@@ -244,17 +250,17 @@ static Key keys[] = {
 	{ 0,	0,		XF86XK_AudioRaiseVolume,	spawn,			{.v = volupcmd } },
 	{ 0,	0,		XF86XK_MonBrightnessUp,		spawn,			{.v = brupcmd} },
 	{ 0,	0,		XF86XK_MonBrightnessDown,	spawn,			{.v = brdowncmd} },
-	
+
 	// for keyboard with no media keys (some doen't even have function key...)
 	{ 0,	MODKEY|ControlMask,		XK_h,		spawn,			{.v = voldowncmd } },
 	{ 0,	MODKEY|ControlMask,		XK_l,		spawn,			{.v = volupcmd } },
 	{ 0,	MODKEY|ControlMask,		XK_x,		spawn,			{.v = brupcmd} },
 	{ 0,	MODKEY|ControlMask,		XK_z,		spawn,			{.v = brdowncmd } },
-	
+
 	{ 0,	MODKEY,					XK_F2,	   spawn,	   SHCMD("feh --bg-fill -zr ~/Pictures/wallpapers") },
 	{ 0,	0,						XK_Print,  spawn,	   {.v = printscr_full} },
 	{ 0,	ShiftMask,				XK_Print,  spawn,	   {.v = printscr} },
-	{ 2,	MODKEY|ControlMask,		XK_q,	   spawn,	   {.v = poweroffcmd} },	
+	{ 2,	MODKEY|ControlMask,		XK_q,	   spawn,	   {.v = poweroffcmd} },
 	{ 3,	MODKEY|ControlMask,		XK_q,	   spawn,	   {.v = rebootcmd} },
 };
 
