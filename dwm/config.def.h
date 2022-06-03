@@ -21,12 +21,12 @@ static const int showsystray                = 1;     	// 0 means no systray
 static const int showbar                    = 1;        // 0 means no bar
 static const int topbar                     = 1;        // 0 means bottom bar
 
-static const char *fonts[]     		= { "FiraCode Nerd Font:style:medium:size=10",
+static const char *fonts[]     		= { "JetBrainsMono Nerd Font:style:medium:size=10",
                                   		"Twemoji:size=10:antialias=true:autohint=true"};
 
-static const char dmenufont[]       =  "FiraCode Nerd Font:style:medium:size=10";
+static const char dmenufont[]       =  "JetBrainsMono Nerd Font:style:medium:size=10";
 										// "Hack:size=11:antialias=true:autohint=true",
-										// "JoyPixels:size=12:antialias=true:autohint=true"
+										// "JoyPixels:size=11:antialias=true:autohint=true"
 
 
 // nord colorscheme
@@ -76,7 +76,7 @@ static const char col_gray3[]       = "#D3BD97";
 static const char col_gray4[]       = "#1d2021";
 static const char col_border[]      = "#A8B565";
 static const char col_cyan[]        = "#EA6962";	// used for dmenu too
-static const char col_midbar[]		= "#1d2021";
+static const char col_midbar[]		= "#3C3836";
 static const char col_titletext[]	= "#E6894E";
 
 // dracula colorscheme
@@ -106,6 +106,58 @@ static const unsigned int ulinepad	= 5;	/* horizontal padding between the underl
 static const unsigned int ulinestroke	= 2;	/* thickness / height of the underline */
 static const unsigned int ulinevoffset	= 0;	/* how far above the bottom of the bar the line should appear */
 static const int ulineall 		= 0;	/* 1 to show underline on all tags, 0 for just the active ones */
+
+// tagsel colors [nord]
+// static const char *tagsel[][2] = {
+//     { "#2E3440", "#5E81AC" },
+//     { "#2E3440", "#BF616A" },
+//     { "#2E3440", "#EBCB8B" },
+//     { "#2E3440", "#A3BE8C" },
+//     { "#2E3440", "#B48EAD" },
+//     { "#2E3440", "#D08770" },
+//     { "#2E3440", "#5E81AC" },
+//     { "#D8DEE9", "#BF616A" },
+//     { "#2E3440", "#A3BE8C" },
+// };
+
+// tagsel colors [solarized]
+// static const char *tagsel[][2] = {
+//     { "#002b36", "#2AA198" },
+//     { "#002b36", "#268BD2" },
+//     { "#EEE8D5", "#B58900" },
+//     { "#002b36", "#859900" },
+//     { "#002b36", "#6C71C4" },
+//     { "#002b36", "#CB4B16" },
+//     { "#002b36", "#859900" },
+//     { "#EEE8D5", "#DC322F" },
+//     { "#002b36", "#2AA198" },
+// };
+
+// tagsel colors [gruvbox]
+static const char *tagsel[][2] = {
+	{ "#EA6962", "#1d2021" },
+	{ "#A8B565", "#1d2021" },
+	{ "#d3869b", "#1d2021" },
+	{ "#E6894E", "#1d2021" },
+	{ "#fbf1c7", "#1d2021" },
+	{ "#7DAEA3", "#1d2021" },
+	{ "#ea6962", "#1d2021" },
+	{ "#fbf1c7", "#1d2021" },
+	{ "#e6894e", "#1d2021" },
+};
+
+// tagsel colors [dracula]
+// static const char *tagsel[][2] = {
+//     { "#282a36", "#ff79c6" },
+//     { "#282a36", "#6272a4" },
+//     { "#282a36", "#50fa7b" },
+//     { "#282a36", "#bd93f9" },
+//     { "#fbf1c7", "#ff5555" },
+//     { "#282a36", "#bd93f9" },
+//     { "#282a36", "#50fa7b" },
+//     { "#282a36", "#ff79c6" },
+//     { "#282a36", "#ffb86c" },
+// };
 
 static const Rule rules[] = {
 	/* xprop(1):

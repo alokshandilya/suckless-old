@@ -37,7 +37,7 @@ for coloured emojis in suckless utilities.
 - cfacts
 - ~~autostart~~
 - multikey
-- ~~rainbow tags~~
+- rainbow tags
 - ~~alpha~~
 - fixborder
 - scratchpad
