@@ -21,10 +21,10 @@ static const int showsystray                = 1;     	// 0 means no systray
 static const int showbar                    = 1;        // 0 means no bar
 static const int topbar                     = 1;        // 0 means bottom bar
 
-static const char *fonts[]     		= { "JetBrainsMono Nerd Font:style:medium:size=10",
+static const char *fonts[]     		= { "FiraCode Nerd Font:style:medium:size=10",
                                   		"Twemoji:size=10:antialias=true:autohint=true"};
 
-static const char dmenufont[]       =  "JetBrainsMono Nerd Font:style:medium:size=10";
+static const char dmenufont[]       =  "FiraCode Nerd Font:style:medium:size=10";
 										// "Hack:size=11:antialias=true:autohint=true",
 										// "JoyPixels:size=11:antialias=true:autohint=true"
 
@@ -138,10 +138,10 @@ static const char *tagsel[][2] = {
 	{ "#EA6962", "#1d2021" },
 	{ "#A8B565", "#1d2021" },
 	{ "#d3869b", "#1d2021" },
-	{ "#E6894E", "#1d2021" },
+	{ "#7daea3", "#1d2021" },
 	{ "#fbf1c7", "#1d2021" },
-	{ "#7DAEA3", "#1d2021" },
-	{ "#ea6962", "#1d2021" },
+	{ "#e6894e", "#1d2021" },
+	{ "#7daea3", "#1d2021" },
 	{ "#fbf1c7", "#1d2021" },
 	{ "#e6894e", "#1d2021" },
 };
