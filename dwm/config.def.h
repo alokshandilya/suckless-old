@@ -11,20 +11,24 @@
 
 // appearance
 static const unsigned int borderpx          = 2;        // border pixel of windows
-static const unsigned int gappx             = 10;       // gaps between windows
 static const unsigned int snap              = 32;       // snap pixel
 static const unsigned int systraypinning    = 0;   		// 0: sloppy systray follows selected monitor, >0: pin systray to monitor X
 static const unsigned int systrayonleft     = 0;   		// 0: systray in the right corner, >0: systray on left of status text
 static const unsigned int systrayspacing    = 2;   		// systray spacing
 static const int systraypinningfailfirst    = 1;   		// 1: if pinning fails, display systray on the first monitor, False: display systray on the last monitor
 static const int showsystray                = 1;     	// 0 means no systray
+static const unsigned int gappih    = 20;       /* horiz inner gap between windows */
+static const unsigned int gappiv    = 10;       /* vert inner gap between windows */
+static const unsigned int gappoh    = 10;       /* horiz outer gap between windows and screen edge */
+static const unsigned int gappov    = 30;       /* vert outer gap between windows and screen edge */
+static       int smartgaps          = 0;        /* 1 means no outer gap when there is only one window */
 static const int showbar                    = 1;        // 0 means no bar
 static const int topbar                     = 1;        // 0 means bottom bar
 
-static const char *fonts[]     		= { "FiraCode Nerd Font:style:medium:size=10",
+static const char *fonts[]     		= { "FiraCode Nerd Font:style:bold:size=10",
                                   		"Twemoji:size=10:antialias=true:autohint=true"};
 
-static const char dmenufont[]       =  "FiraCode Nerd Font:style:medium:size=10";
+static const char dmenufont[]       =  "FiraCode Nerd Font:style:bold:size=10";
 										// "Hack:size=11:antialias=true:autohint=true",
 										// "JoyPixels:size=11:antialias=true:autohint=true"
 
@@ -76,7 +80,7 @@ static const char col_gray3[]       = "#D3BD97";
 static const char col_gray4[]       = "#1d2021";
 static const char col_border[]      = "#A8B565";
 static const char col_cyan[]        = "#EA6962";	// used for dmenu too
-static const char col_midbar[]		= "#3C3836";
+static const char col_midbar[]		= "#1d2021";
 static const char col_titletext[]	= "#E6894E";
 
 // dracula colorscheme
@@ -180,14 +184,25 @@ static const float mfact     = 0.55; /* factor of master area size [0.05..0.95] 
 static const int nmaster     = 1;    /* number of clients in master area */
 static const int resizehints = 1;    /* 1 means respect size hints in tiled resizals */
 
-#include "fibonacci.c"
+#define FORCE_VSPLIT 1  /* nrowgrid layout: force two clients to always split vertically */
+#include "vanitygaps.c"
 static const Layout layouts[] = {
 	/* symbol     arrange function */
 	{ "[]=",      tile },    /* first entry is default */
-	{ "><>",      NULL },    /* no layout function means floating behavior */
 	{ "[M]",      monocle },
- 	{ "[@]",      spiral },
- 	{ "[\\]",      dwindle },
+	{ "[@]",      spiral },
+	{ "[\\]",     dwindle },
+	{ "H[]",      deck },
+	{ "TTT",      bstack },
+	{ "===",      bstackhoriz },
+	{ "HHH",      grid },
+	{ "###",      nrowgrid },
+	{ "---",      horizgrid },
+	{ ":::",      gaplessgrid },
+	{ "|M|",      centeredmaster },
+	{ ">M>",      centeredfloatingmaster },
+	{ "><>",      NULL },    /* no layout function means floating behavior */
+	{ NULL,       NULL },
 };
 
 /* key definitions */
@@ -279,6 +294,24 @@ static Key keys[] = {
 	{ 0,			MODKEY|ShiftMask,           XK_j,      movestack,      {.i = +1 } },
 	{ 0,			MODKEY|ShiftMask,           XK_k,      movestack,      {.i = -1 } },
 	{ 0,			MODKEY|ShiftMask,           XK_Return, zoom,           {0} },
+
+	{ 0, MODKEY|Mod4Mask,              XK_u,      incrgaps,       {.i = +1 } },
+	{ 0, MODKEY|Mod4Mask|ShiftMask,    XK_u,      incrgaps,       {.i = -1 } },
+	{ 0, MODKEY|Mod4Mask,              XK_i,      incrigaps,      {.i = +1 } },
+	{ 0, MODKEY|Mod4Mask|ShiftMask,    XK_i,      incrigaps,      {.i = -1 } },
+	{ 0, MODKEY|Mod4Mask,              XK_o,      incrogaps,      {.i = +1 } },
+	{ 0, MODKEY|Mod4Mask|ShiftMask,    XK_o,      incrogaps,      {.i = -1 } },
+	{ 0, MODKEY|Mod4Mask,              XK_6,      incrihgaps,     {.i = +1 } },
+	{ 0, MODKEY|Mod4Mask|ShiftMask,    XK_6,      incrihgaps,     {.i = -1 } },
+	{ 0, MODKEY|Mod4Mask,              XK_7,      incrivgaps,     {.i = +1 } },
+	{ 0, MODKEY|Mod4Mask|ShiftMask,    XK_7,      incrivgaps,     {.i = -1 } },
+	{ 0, MODKEY|Mod4Mask,              XK_8,      incrohgaps,     {.i = +1 } },
+	{ 0, MODKEY|Mod4Mask|ShiftMask,    XK_8,      incrohgaps,     {.i = -1 } },
+	{ 0, MODKEY|Mod4Mask,              XK_9,      incrovgaps,     {.i = +1 } },
+	{ 0, MODKEY|Mod4Mask|ShiftMask,    XK_9,      incrovgaps,     {.i = -1 } },
+	{ 0, MODKEY|Mod4Mask,              XK_0,      togglegaps,     {0} },
+	{ 0, MODKEY|Mod4Mask|ShiftMask,    XK_0,      defaultgaps,    {0} },
+        
 	{ 0,			MODKEY,                     XK_Tab,    view,           {0} },
 	{ 0,			MODKEY|ShiftMask,           XK_q,      killclient,     {0} },
 	{ 0,			MODKEY,                     XK_t,      setlayout,      {.v = &layouts[0]} },
@@ -296,10 +329,6 @@ static Key keys[] = {
 	{ 0,			MODKEY,                     XK_period, focusmon,       {.i = +1 } },
 	{ 0,			MODKEY|ShiftMask,           XK_comma,  tagmon,         {.i = -1 } },
 	{ 0,			MODKEY|ShiftMask,           XK_period, tagmon,         {.i = +1 } },
-	{ 0,			MODKEY,                     XK_minus,  setgaps,        {.i = -1 } },
-	{ 0,			MODKEY,                     XK_equal,  setgaps,        {.i = +1 } },
-	{ 0,			MODKEY|ShiftMask,           XK_equal,  setgaps,        {.i = 0  } },
-
 	{ 1,			MODKEY|ControlMask,         XK_q,      quit,           {0} },
 
 	TAGKEYS(                        XK_1,                      0)

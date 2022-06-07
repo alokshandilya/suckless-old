@@ -24,10 +24,10 @@ for coloured emojis in suckless utilities.
 ## Patches 🧰
 
 - ~~notitle~~
-- fibonacci
+- ~~fibonacci~~
 - alwayscenter
 - underline
-- fullgaps
+- ~~fullgaps~~
 - ~~vanitygaps~~
 - pertag
 - attachbottom
