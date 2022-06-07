@@ -28,7 +28,7 @@ for coloured emojis in suckless utilities.
 - alwayscenter
 - underline
 - ~~fullgaps~~
-- ~~vanitygaps~~
+- vanitygaps
 - pertag
 - attachbottom
 - movestack
