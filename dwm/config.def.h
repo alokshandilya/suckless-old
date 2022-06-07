@@ -325,6 +325,7 @@ static Key keys[] = {
 	{ 0,	MODKEY|ControlMask,		XK_z,		spawn,			{.v = brdowncmd } },
 
 	{ 0,	MODKEY,					XK_F2,	   spawn,	   SHCMD("feh --bg-fill -zr ~/Pictures/wallpapers") },
+	{ 0,	MODKEY,					XK_F1,	   spawn,	   SHCMD("~/.config/scripts/dmenu-scripts/./wallchange.sh") },
 	{ 0,	0,						XK_Print,  spawn,	   {.v = printscr_full} },
 	{ 0,	ShiftMask,				XK_Print,  spawn,	   {.v = printscr} },
 	{ 2,	MODKEY|ControlMask,		XK_q,	   spawn,	   {.v = poweroffcmd} },
