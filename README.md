@@ -34,6 +34,7 @@ for coloured emojis in suckless utilities.
 - ~~attachbottom~~
 - movestack
 - fullscreen
+- cool-autostart
 - systray
 - cfacts
 - ~~autostart~~
