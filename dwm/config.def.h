@@ -45,7 +45,7 @@ static const char dmenufont[]       =  "FiraCode Nerd Font:style:bold:size=10";
 
 // solarized colorscheme
 //static const char col_gray1[]       = "#002A36";
-/* static const char col_gray1[]       = "##002732"; */
+/* static const char col_gray1[]       = "#002732"; */
 /* static const char col_gray2[]       = "#0D3642"; */
 /* static const char col_gray3[]       = "#EEE8D5"; */
 /* static const char col_gray4[]       = "#0D3642"; */
@@ -64,24 +64,34 @@ static const char dmenufont[]       =  "FiraCode Nerd Font:style:bold:size=10";
 // static const char col_midbar[]		= "#61afef";
 
 // gruvbox colorscheme
-/* static const char col_gray1[]       = "#1d2021"; */
-/* static const char col_gray2[]       = "#504945"; */
-/* static const char col_gray3[]       = "#ebdbb2"; */
-/* static const char col_gray4[]       = "#1d2021"; */
-/* static const char col_border[]      = "#46d9ff"; */
-/* static const char col_cyan[]        = "#458588";	// used for dmenu too */
-/* static const char col_midbar[]		= "#1d2021"; */
-/* static const char col_titletext[]	= "#458588"; */
+// static const char col_gray1[]       = "#1d2021";
+// static const char col_gray2[]       = "#504945";
+// static const char col_gray3[]       = "#ebdbb2";
+// static const char col_gray4[]       = "#1d2021";
+// static const char col_border[]      = "#46d9ff";
+// static const char col_cyan[]        = "#458588";	// used for dmenu too
+// static const char col_midbar[]		= "#1d2021";
+// static const char col_titletext[]	= "#458588";
 
 // gruvbox-material colorscheme
 static const char col_gray1[]       = "#1d2021";
 static const char col_gray2[]       = "#504945";
 static const char col_gray3[]       = "#D3BD97";
 static const char col_gray4[]       = "#1d2021";
-static const char col_border[]      = "#A8B565";
+static const char col_border[]      = "#46d9ff";
 static const char col_cyan[]        = "#EA6962";	// used for dmenu too
 static const char col_midbar[]		= "#1d2021";
 static const char col_titletext[]	= "#E6894E";
+
+// tomorrow-night colorscheme
+// static const char col_gray1[]       = "#1d1f21";
+// static const char col_gray2[]       = "#373b41";
+// static const char col_gray3[]       = "#c5c8c6";
+// static const char col_gray4[]       = "#1d1f21";
+// static const char col_border[]      = "#8be9fd";
+// static const char col_cyan[]        = "#cc6666";	// used for dmenu too
+// static const char col_midbar[]		= "#1d1f21";
+// static const char col_titletext[]	= "#de935f";
 
 // dracula colorscheme
 /* static const char col_gray1[]       = "#282a36"; */
