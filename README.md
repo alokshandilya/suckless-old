@@ -30,7 +30,8 @@ for coloured emojis in suckless utilities.
 - ~~fullgaps~~
 - vanitygaps
 - pertag
-- attachbottom
+- switchtotag
+- ~~attachbottom~~
 - movestack
 - fullscreen
 - systray

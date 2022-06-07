@@ -168,15 +168,15 @@ static const Rule rules[] = {
 	 *	WM_CLASS(STRING) = instance, class
 	 *	WM_NAME(STRING) = title
 	 */
-	/* class     		 	instance    title       tags mask     isfloating   monitor */
-	{ "Gimp",               NULL,       NULL,       1 << 5,       0,           0 },
-	{ "firefox",            NULL,       NULL,       1 << 0,       0,           0 },
-	{ "Brave-browser",      NULL,       NULL,       1 << 0,       0,           0 },
-	{ "Code",               NULL,	    NULL,		1 << 1,       0,	       0 },
-	{ "jetbrains-idea-ce",  NULL,	    NULL,		1 << 1,       0,  	       0 },
-	{ "Emacs",              NULL,	    NULL,		1 << 1,       0,  	       0 },
-	//{ "St",                 NULL,	    NULL,		1 << 1,       0,  	       0 },
-	{ "GitHub Desktop",     NULL,       NULL,       1 << 2,       0,           0 },
+	/* class     		 	instance    title       tags mask     switchtotag      isfloating   monitor */
+	{ "Gimp",               NULL,       NULL,       1 << 5,       1,               0,           0 },
+	{ "firefox",            NULL,       NULL,       1 << 0,       1,               0,           0 },
+	{ "Brave-browser",      NULL,       NULL,       1 << 0,       1,               0,           0 },
+	{ "Code",               NULL,	    NULL,		1 << 1,       1,	           0,           0 },
+	{ "jetbrains-idea-ce",  NULL,	    NULL,		1 << 1,       1,  	           0,           0 },
+	{ "Emacs",              NULL,	    NULL,		1 << 1,       1,  	           0,           0 },
+	//{ "St",                 NULL,	    NULL,		1 << 1,       0,  	           0,           0 },
+	{ "GitHub Desktop",     NULL,       NULL,       1 << 2,       1,               0,           0 },
 };
 
 /* layout(s) */
