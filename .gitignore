@@ -6,3 +6,4 @@ dwm/drw.o
 dwm/*orig
 dwm/*rej
 dwm/*diff
+dwmblocks/blocks.h
