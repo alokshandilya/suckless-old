@@ -9,6 +9,12 @@
 
 #include <X11/XF86keysym.h>
 
+/* Constants : Using preprocessor */
+#define TERMINAL "st"
+#define TERMCLASS "St"
+#define BROWSER "brave"
+#define BROWSERCLASS "Brave-browser"
+
 // appearance
 static const unsigned int borderpx          = 2;        // border pixel of windows
 static const unsigned int snap              = 32;       // snap pixel
@@ -25,10 +31,12 @@ static       int smartgaps          = 0;        /* 1 means no outer gap when the
 static const int showbar                    = 1;        // 0 means no bar
 static const int topbar                     = 1;        // 0 means bottom bar
 
-static const char *fonts[]     		= { "FiraCode Nerd Font:style:bold:size=10", "FontAwesome:size=11",
-                                  		"Twemoji:size=10:antialias=true:autohint=true"};
 
-static const char dmenufont[]       =  "FiraCode Nerd Font:style:bold:size=10";
+// *fonts [FiraCode Nerd Font, JetBrainsMono Nerd Font]
+static const char *fonts[]     		= { "FiraCode Nerd Font:style:bold:size=10", "FontAwesome:size=11",
+                                  		"Twemoji:size=11:antialias=true:autohint=true"};
+
+static const char dmenufont[]       =  "FiraCode Nerd Font:style:bold:size=11";
 										// "Hack:size=11:antialias=true:autohint=true",
 										// "JoyPixels:size=11:antialias=true:autohint=true"
 
@@ -115,7 +123,6 @@ static const char *const autostart[] = {
     "./.fehbg", NULL,
     "sh", "-c", "picom --config ~/.config/picom/picom.conf --experimental-backends", NULL,
     "lxsession", NULL,
-    "st", NULL,
     "dunst", NULL,
     "xbanish", NULL,
     "numlockx", "on", NULL,
@@ -195,12 +202,13 @@ static const Rule rules[] = {
 	{ "Gimp",                NULL,       NULL,       1 << 5,       1,               0,           0 },
 	{ "vlc",                 NULL,       NULL,       1 << 5,       1,               0,           0 },
 	{ "firefox",             NULL,       NULL,       1 << 0,       1,               0,           0 },
-	{ "Brave-browser",       NULL,       NULL,       1 << 0,       1,               0,           0 },
+	{ BROWSERCLASS,          NULL,       NULL,       1 << 0,       1,               0,           0 },
 	{ "Code",                NULL, 	     NULL,		 1 << 1,       1,	            0,           0 },
 	{ "jetbrains-idea-ce",   NULL,	     NULL,       1 << 1,       1,  	            0,           0 },
 	{ "Emacs",               NULL,	     NULL,       1 << 1,       1,  	            0,           0 },
-	//{ "St",                  NULL,	    NULL,      1 << 1,       0,  	           0,           0 },
+	/* { TERMCLASS,             NULL,       NULL,       1 << 1,       1,  	            0,           0 }, */
 	{ "GitHub Desktop",      NULL,       NULL,       1 << 2,       1,               0,           0 },
+	{ "Mailspring",          NULL,       NULL,       1 << 6,       1,               0,           0 },
 	{ "TelegramDesktop",     NULL,       NULL,       1 << 6,       1,               0,           0 },
 	{ "Soffice",             NULL,       NULL,       1 << 4,       1,               0,           0 },
 };
@@ -247,11 +255,9 @@ static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() 
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
 static const char *roficmd[] = { "rofi", "-show", "drun", NULL };
 
-static const char *termcmd[]  = { "st", NULL };
-//static const char *termcmd[]  = { "kitty", NULL };
-static const char *termcmdalt[]  = { "alacritty", NULL };
+static const char *termcmd[]  = { TERMINAL, NULL };
 static const char scratchpadname[] = "Alok's Playing Area-51 🏏";
-static const char *scratchpadcmd[] = { "st", "-t", scratchpadname, "-g", "135x34", NULL };
+static const char *scratchpadcmd[] = { TERMINAL, "-t", scratchpadname, "-g", "135x34", NULL };
 
 static const char *mutecmd[] = { "amixer", "-q", "set", "Master", "toggle", NULL };
 static const char *volupcmd[] = { "amixer", "-q", "set", "Master", "5%+", "unmute", NULL };
@@ -269,11 +275,11 @@ static const char *codecmd[] = { "/usr/bin/code", NULL };
 //static const char *plannercmd[] = { "/usr/bin/planner", NULL };
 static const char *volume_control[] = { "/usr/bin/pavucontrol", NULL };
 //static const char *email_client[] = { "/usr/bin/mailspring", NULL };
-static const char *ranger[] = { "st", "-e", "ranger", NULL };
-static const char *nvimcmd[] = { "st", "-e", "nvim", NULL };
+static const char *ranger[] = { TERMINAL, "-e", "ranger", NULL };
+static const char *nvimcmd[] = { TERMINAL, "-e", "nvim", NULL };
 
 //static const char *googletasks[] = { "/usr/lib/brave-bin/brave", "--profile-directory=Default", "--app-id=ffpdhnednbmelagcknnegjemgooenfml", NULL };
-static const char *bpytop[] = { "st", "-e", "bpytop", NULL };
+static const char *bpytop[] = { TERMINAL, "-e", "bpytop", NULL };
 
 static const char *printscr_full[] = { "spectacle", NULL };
 static const char *printscr[] = { "/home/aloks/.config/scripts/printscr", NULL };
@@ -287,16 +293,15 @@ static const char *rebootcmd[] =  { "systemctl", "reboot", NULL };
 #include "movestack.c"
 static Key keys[] = {
 	/* npressed,	modifier                    key        function        argument */
-	{ 2,			MODKEY,                     XK_d,      spawn,      {.v = dmenucmd } },
-	{ 1,			MODKEY,		                XK_Return, spawn,      {.v = termcmd } },
-	{ 2,			MODKEY,		                XK_Return, spawn,      {.v = termcmdalt } },
-	{ 0,      		MODKEY,                   XK_grave,  togglescratch,  {.v = scratchpadcmd } },
-	{ 1,			MODKEY,						XK_d,	   spawn,	   {.v = roficmd } },
-	{ 1,			MODKEY,						XK_w,	   spawn,	   {.v = browsercmd } },
-	{ 1,			MODKEY,						XK_e,	   spawn,	   {.v = filemanagercmd } },
-	{ 1,			MODKEY,						XK_v,	   spawn,	   {.v = codecmd } },
-	//{ 0,			MODKEY,						XK_n,	   spawn,	   {.v = plannercmd } },
-	//{ 0,			MODKEY,						XK_n,	   spawn,	   {.v = googletasks } },
+	{ 2,			MODKEY,                     XK_d,      spawn,         {.v = dmenucmd } },
+	{ 1,			MODKEY,		                XK_Return, spawn,         {.v = termcmd } },
+	{ 0,      		MODKEY,                     XK_grave,  togglescratch, {.v = scratchpadcmd } },
+	{ 1,			MODKEY,						XK_d,	   spawn,	      {.v = roficmd } },
+	{ 1,			MODKEY,						XK_w,	   spawn,	      {.v = browsercmd } },
+	{ 1,			MODKEY,						XK_e,	   spawn,	      {.v = filemanagercmd } },
+	{ 1,			MODKEY,						XK_v,	   spawn,	      {.v = codecmd } },
+	/* { 0,			MODKEY,						XK_n,	   spawn,	      {.v = plannercmd } }, */
+	/* { 0,			MODKEY,						XK_n,	   spawn,	      {.v = googletasks } }, */
 
 	{ 0,			MODKEY|ShiftMask,			XK_d,	   spawn,	   SHCMD("emacsclient -c -a 'emacs' --eval '(dashboard-refresh-buffer)'") },
 	{ 1,			MODKEY|ShiftMask,			XK_d,	   spawn,	   {.v = nvimcmd } },
@@ -345,6 +350,8 @@ static Key keys[] = {
 	{ 0,			MODKEY,                     XK_m,      setlayout,      {.v = &layouts[2]} },
 	{ 0,            MODKEY,                     XK_r,      setlayout,      {.v = &layouts[3]} },
 	{ 0,            MODKEY|ShiftMask,           XK_r,      setlayout,      {.v = &layouts[4]} },
+	{ 0,            MODKEY|ControlMask,         XK_comma,  cyclelayout,    {.i = -1 } },
+	{ 0,            MODKEY|ControlMask,         XK_period, cyclelayout,    {.i = +1 } },
 	{ 0,			MODKEY,                     XK_space,  setlayout,      {0} },
 	{ 0,			MODKEY|ShiftMask,           XK_space,  togglefloating, {0} },
 	{ 2,			MODKEY,			            XK_f,      togglefullscr,  {0} },

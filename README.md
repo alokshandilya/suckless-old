@@ -29,6 +29,7 @@ for coloured emojis in suckless utilities.
 - underline
 - ~~fullgaps~~
 - vanitygaps
+- cyclelayouts
 - pertag
 - switchtotag
 - ~~attachbottom~~
