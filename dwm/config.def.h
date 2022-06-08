@@ -25,7 +25,7 @@ static       int smartgaps          = 0;        /* 1 means no outer gap when the
 static const int showbar                    = 1;        // 0 means no bar
 static const int topbar                     = 1;        // 0 means bottom bar
 
-static const char *fonts[]     		= { "FiraCode Nerd Font:style:bold:size=10",
+static const char *fonts[]     		= { "FiraCode Nerd Font:style:bold:size=10", "FontAwesome:size=11",
                                   		"Twemoji:size=10:antialias=true:autohint=true"};
 
 static const char dmenufont[]       =  "FiraCode Nerd Font:style:bold:size=10";
@@ -126,9 +126,8 @@ static const char *const autostart[] = {
 
 // tagging
 // static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
-// static const char *tags[] = { "", "", "", " ", "", "", "", "", "", "", "", "", "", "" };
 static const char *tags[] = { "", "", "", "", "", "嗢", "", "", ""};
-//static const char *tags[] = { "", "", "", "", "", "", "", "", "" };
+// static const char *tags[] = { "", " ", "", "", "", "", "", "", ""};
 
 static const unsigned int ulinepad	= 5;	/* horizontal padding between the underline and tag */
 static const unsigned int ulinestroke	= 2;	/* thickness / height of the underline */
@@ -380,7 +379,7 @@ static Key keys[] = {
 	{ 0,	MODKEY|ControlMask,		XK_x,		spawn,			{.v = brupcmd} },
 	{ 0,	MODKEY|ControlMask,		XK_z,		spawn,			{.v = brdowncmd } },
 
-	{ 0,	MODKEY,					XK_F2,	   spawn,	   SHCMD("feh --bg-fill -zr ~/Pictures/wallpapers") },
+	{ 0,	MODKEY,					XK_F2,	   spawn,	   SHCMD("feh --bg-fill -zr ~/Documents/GitHub/wallpapers") },
 	{ 0,	MODKEY,					XK_F1,	   spawn,	   SHCMD("~/.config/scripts/dmenu-scripts/./wallchange.sh") },
 	{ 0,	0,						XK_Print,  spawn,	   {.v = printscr_full} },
 	{ 0,	ShiftMask,				XK_Print,  spawn,	   {.v = printscr} },
