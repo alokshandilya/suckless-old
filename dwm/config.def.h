@@ -201,6 +201,7 @@ static const Rule rules[] = {
 	/* class     		 	 instance    title       tags mask     switchtotag      isfloating   monitor */
 	{ "Gimp",                NULL,       NULL,       1 << 5,       1,               0,           0 },
 	{ "vlc",                 NULL,       NULL,       1 << 5,       1,               0,           0 },
+	{ "mpv",                 NULL,       NULL,       1 << 5,       1,               0,           0 },
 	{ "firefox",             NULL,       NULL,       1 << 0,       1,               0,           0 },
 	{ BROWSERCLASS,          NULL,       NULL,       1 << 0,       1,               0,           0 },
 	{ "Code",                NULL, 	     NULL,		 1 << 1,       1,	            0,           0 },
