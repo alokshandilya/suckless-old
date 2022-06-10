@@ -2,6 +2,14 @@
 
 #include <X11/XF86keysym.h>
 
+// ALOK [CONSTANTS]
+/* Constants : Using preprocessor */
+#define TERMINAL "st"
+#define TERMCLASS "St"
+#define BROWSER "brave"
+#define BROWSERCLASS "Brave-browser"
+// ALOK [CONSTANTS END]
+
 /* appearance */
 #if ROUNDED_CORNERS_PATCH
 static const unsigned int borderpx       = 2;   /* border pixel of windows */
@@ -364,7 +372,7 @@ static const char *const autostart[] = {
 #endif // COOL_AUTOSTART_PATCH
 
 #if SCRATCHPADS_PATCH
-const char *spcmd1[] = {"st", "-n", "spterm", "-g", "120x34", NULL };
+const char *spcmd1[] = {TERMINAL, "-n", "spterm", "-g", "120x34", NULL };
 static Sp scratchpads[] = {
    /* name          cmd  */
    {"spterm",      spcmd1},
@@ -401,7 +409,7 @@ static Sp scratchpads[] = {
 static char *tagicons[][NUMTAGS] = {
     // [DEFAULT_TAGS]        = { "1", "2", "3", "4", "5", "6", "7", "8", "9" },
     // [DEFAULT_TAGS] = { "", "", "", "", "", "嗢", "", "", ""},
-    [DEFAULT_TAGS] = { "", "", "", "", "", "", "", "", ""},
+    [DEFAULT_TAGS] = { "", "", "", "", "", "", "", "", "" },
     [ALTERNATIVE_TAGS]    = { "A", "B", "C", "D", "E", "F", "G", "H", "I" },
     [ALT_TAGS_DECORATION] = { "<1>", "<2>", "<3>", "<4>", "<5>", "<6>", "<7>", "<8>", "<9>" },
 };
@@ -438,6 +446,8 @@ static const int tagrows = 2;
  * Refer to the Rule struct definition for the list of available fields depending on
  * the patches you enable.
  */
+
+// ALOK [RULES]
 static const Rule rules[] = {
 	/* xprop(1):
 	 *	WM_CLASS(STRING) = instance, class
@@ -449,12 +459,45 @@ static const Rule rules[] = {
 	RULE(.wintype = WTYPE "UTILITY", .isfloating = 1)
 	RULE(.wintype = WTYPE "TOOLBAR", .isfloating = 1)
 	RULE(.wintype = WTYPE "SPLASH", .isfloating = 1)
-	RULE(.class = "Gimp", .tags = 1 << 4)
-	RULE(.class = "Firefox", .tags = 1 << 7)
+	RULE(.class = "firefox", .tags = 1 << 0, .switchtag = 3)
+	RULE(.class = BROWSERCLASS, .tags = 1 << 0, .switchtag = 3)
+	RULE(.class = "Code", .tags = 1 << 1, .switchtag = 3)
+	RULE(.class = "jetbrains-idea-ce", .tags = 1 << 1, .switchtag = 3)
+	RULE(.class = "Emacs", .tags = 1 << 1, .switchtag = 3)
+	// RULE(.class = TERMCLASS, .tags = 1 << 1, .switchtag = 3)
+	RULE(.class = "GitHub Desktop", .tags = 1 << 2, .switchtag = 3)
+	RULE(.class = "Rhythmbox", .tags = 1 << 3, .switchtag = 3)
+	RULE(.class = "Soffice", .tags = 1 << 4, .switchtag = 3)
+	RULE(.class = "Gimp", .tags = 1 << 4, .switchtag = 3)
+	RULE(.class = "vlc", .tags = 1 << 5, .switchtag = 3)
+	RULE(.class = "mpv", .tags = 1 << 5, .switchtag = 3)
+	RULE(.class = "Mailspring", .tags = 1 << 6, .switchtag = 3)
+	RULE(.class = "TelegramDesktop", .tags = 1 << 6, .switchtag = 3)
 	#if SCRATCHPADS_PATCH
 	RULE(.instance = "spterm", .tags = SPTAG(0), .isfloating = 1)
 	#endif // SCRATCHPADS_PATCH
 };
+// ALOK - [RULES END]
+
+// ALOK - [RULES REPLACED]
+// static const Rule rules[] = {
+// 	/* xprop(1):
+// 	 *	WM_CLASS(STRING) = instance, class
+// 	 *	WM_NAME(STRING) = title
+// 	 *	WM_WINDOW_ROLE(STRING) = role
+// 	 *	_NET_WM_WINDOW_TYPE(ATOM) = wintype
+// 	 */
+// 	RULE(.wintype = WTYPE "DIALOG", .isfloating = 1)
+// 	RULE(.wintype = WTYPE "UTILITY", .isfloating = 1)
+// 	RULE(.wintype = WTYPE "TOOLBAR", .isfloating = 1)
+// 	RULE(.wintype = WTYPE "SPLASH", .isfloating = 1)
+// 	RULE(.class = "Gimp", .tags = 1 << 4)
+// 	RULE(.class = "Firefox", .tags = 1 << 7)
+// 	#if SCRATCHPADS_PATCH
+// 	RULE(.instance = "spterm", .tags = SPTAG(0), .isfloating = 1)
+// 	#endif // SCRATCHPADS_PATCH
+// };
+// ALOK - [REPLACED END]
 
 #if MONITOR_RULES_PATCH
 #if PERTAG_PATCH
@@ -825,7 +868,7 @@ static const char *dmenucmd[] = {
 	#endif // BAR_DMENUMATCHTOP_PATCH
 	NULL
 };
-static const char *termcmd[]  = { "st", NULL };
+static const char *termcmd[]  = { TERMINAL, NULL };
 
 #if BAR_STATUSCMD_PATCH
 #if BAR_DWMBLOCKS_PATCH

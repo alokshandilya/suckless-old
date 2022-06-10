@@ -565,7 +565,7 @@ typedef struct {
 #define TERMINAL , .isterminal = 1
 #else
 #define NOSWALLOW
-#define TERMINAL
+// #define TERMINAL
 #endif // SWALLOW_PATCH
 #if SWITCHTAG_PATCH
 #define SWITCHTAG , .switchtag = 1
