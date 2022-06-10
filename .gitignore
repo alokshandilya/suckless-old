@@ -1,9 +1,11 @@
 dwm/dwm
-dwm/dwm.o
-dwm/util.o
+dwm/*.o
 dwm/config.h
-dwm/drw.o
 dwm/*orig
 dwm/*rej
 dwm/*diff
 dwmblocks/blocks.h
+st/config.h
+st/patches.h
+st/st
+st/*.o
