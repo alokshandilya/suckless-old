@@ -1,5 +1,7 @@
 /* See LICENSE file for copyright and license details. */
 
+#include <X11/XF86keysym.h>
+
 /* appearance */
 #if ROUNDED_CORNERS_PATCH
 static const unsigned int borderpx       = 2;   /* border pixel of windows */
@@ -127,50 +129,50 @@ static void (*bartabmonfns[])(Monitor *) = { NULL /* , customlayoutfn */ };
 #if BAR_PANGO_PATCH
 static const char font[]                = "monospace 10";
 #else
-static const char *fonts[]     		= { "FiraCode Nerd Font:style:bold:size=10", "FontAwesome:size=11",
+static const char *fonts[]     		= { "JetBrains Mono:sytle:bold:size=10", "FontAwesome:size=10",
                                             "Twemoji:size=11:antialias=true:autohint=true"};
 #endif // BAR_PANGO_PATCH
-static const char dmenufont[]           =  "FiraCode Nerd Font:style:bold:size=11";
+static const char dmenufont[]           =  "JetBrains Mono:style:bold:size=10";
 
 static char c000000[]                    = "#000000"; // placeholder value
 
-static char normfgcolor[]                = "#bbbbbb";
-static char normbgcolor[]                = "#222222";
-static char normbordercolor[]            = "#444444";
-static char normfloatcolor[]             = "#db8fd9";
+static char normfgcolor[]                = "#d3bd97";
+static char normbgcolor[]                = "#1d2021";
+static char normbordercolor[]            = "#504945";
+static char normfloatcolor[]             = "#504945";
 
-static char selfgcolor[]                 = "#eeeeee";
-static char selbgcolor[]                 = "#005577";
-static char selbordercolor[]             = "#005577";
-static char selfloatcolor[]              = "#005577";
+static char selfgcolor[]                 = "#1d2021";
+static char selbgcolor[]                 = "#ea6962";
+static char selbordercolor[]             = "#46d9ff";
+static char selfloatcolor[]              = "#46d9ff";
 
-static char titlenormfgcolor[]           = "#bbbbbb";
-static char titlenormbgcolor[]           = "#222222";
-static char titlenormbordercolor[]       = "#444444";
-static char titlenormfloatcolor[]        = "#db8fd9";
+static char titlenormfgcolor[]           = "#d3bd97";
+static char titlenormbgcolor[]           = "#1d2021";
+static char titlenormbordercolor[]       = "#504945";
+static char titlenormfloatcolor[]        = "#46d9ff";
 
-static char titleselfgcolor[]            = "#eeeeee";
-static char titleselbgcolor[]            = "#005577";
-static char titleselbordercolor[]        = "#005577";
-static char titleselfloatcolor[]         = "#005577";
+static char titleselfgcolor[]            = "#1d2021";
+static char titleselbgcolor[]            = "#7DAEA3";
+static char titleselbordercolor[]        = "#46d9ff";
+static char titleselfloatcolor[]         = "#46d9ff";
 
-static char tagsnormfgcolor[]            = "#bbbbbb";
-static char tagsnormbgcolor[]            = "#222222";
-static char tagsnormbordercolor[]        = "#444444";
+static char tagsnormfgcolor[]            = "#d3bd97";
+static char tagsnormbgcolor[]            = "#1d2021";
+static char tagsnormbordercolor[]        = "#504945";
 static char tagsnormfloatcolor[]         = "#db8fd9";
 
-static char tagsselfgcolor[]             = "#eeeeee";
-static char tagsselbgcolor[]             = "#005577";
+static char tagsselfgcolor[]             = "#1d2021";
+static char tagsselbgcolor[]             = "#7DAEA3";
 static char tagsselbordercolor[]         = "#005577";
 static char tagsselfloatcolor[]          = "#005577";
 
 static char hidnormfgcolor[]             = "#005577";
 static char hidselfgcolor[]              = "#227799";
-static char hidnormbgcolor[]             = "#222222";
-static char hidselbgcolor[]              = "#222222";
+static char hidnormbgcolor[]             = "#1d2021";
+static char hidselbgcolor[]              = "#1d2021";
 
 static char urgfgcolor[]                 = "#bbbbbb";
-static char urgbgcolor[]                 = "#222222";
+static char urgbgcolor[]                 = "#1d2021";
 static char urgbordercolor[]             = "#ff0000";
 static char urgfloatcolor[]              = "#db8fd9";
 
@@ -398,7 +400,8 @@ static Sp scratchpads[] = {
  */
 static char *tagicons[][NUMTAGS] = {
     // [DEFAULT_TAGS]        = { "1", "2", "3", "4", "5", "6", "7", "8", "9" },
-    [DEFAULT_TAGS] = { "", "", "", "", "", "嗢", "", "", ""},
+    // [DEFAULT_TAGS] = { "", "", "", "", "", "嗢", "", "", ""},
+    [DEFAULT_TAGS] = { "", "", "", "", "", "", "", "", ""},
     [ALTERNATIVE_TAGS]    = { "A", "B", "C", "D", "E", "F", "G", "H", "I" },
     [ALT_TAGS_DECORATION] = { "<1>", "<2>", "<3>", "<4>", "<5>", "<6>", "<7>", "<8>", "<9>" },
 };
