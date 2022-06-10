@@ -209,6 +209,7 @@ static const Rule rules[] = {
 	{ "Emacs",               NULL,	     NULL,       1 << 1,       1,  	            0,           0 },
 	/* { TERMCLASS,             NULL,       NULL,       1 << 1,       1,  	            0,           0 }, */
 	{ "GitHub Desktop",      NULL,       NULL,       1 << 2,       1,               0,           0 },
+	{ "Rhythmbox",           NULL,       NULL,       1 << 3,       1,               0,           0 },
 	{ "Mailspring",          NULL,       NULL,       1 << 6,       1,               0,           0 },
 	{ "TelegramDesktop",     NULL,       NULL,       1 << 6,       1,               0,           0 },
 	{ "Soffice",             NULL,       NULL,       1 << 4,       1,               0,           0 },
