@@ -238,7 +238,7 @@
  * sole purpose of providing visual aid.
  * https://dwm.suckless.org/patches/alternativetags/
  */
-#define BAR_ALTERNATIVE_TAGS_PATCH 0
+#define BAR_ALTERNATIVE_TAGS_PATCH 1
 
 /* This patches provides the ability to use alternative text for tags which contain at
  * least one window.
@@ -1074,7 +1074,7 @@
  * https://github.com/bakkeby/patches/blob/master/dwm/dwm-switchtag-6.2.diff
  * Also see https://dwm.suckless.org/patches/switchtotag
  */
-#define SWITCHTAG_PATCH 1
+#define SWITCHTAG_PATCH 0
 
 /* This patch transforms the monocle layout into a "tabbed" layout if more than one window is
  * present on the monocle view. This patch has been added for demonstration purposes only and has
