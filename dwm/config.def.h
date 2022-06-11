@@ -409,7 +409,7 @@ static Sp scratchpads[] = {
 static char *tagicons[][NUMTAGS] = {
     // [DEFAULT_TAGS]        = { "1", "2", "3", "4", "5", "6", "7", "8", "9" },
     // [DEFAULT_TAGS] = { "", "", "", "", "", "嗢", "", "", ""},
-    [DEFAULT_TAGS] = { "", "", "", "", "", "", "", "", "" },
+    [DEFAULT_TAGS] = { "", "", "", "", "", "", "", "", "" },
     [ALTERNATIVE_TAGS]    = { "A", "B", "C", "D", "E", "F", "G", "H", "I" },
     [ALT_TAGS_DECORATION] = { "<1>", "<2>", "<3>", "<4>", "<5>", "<6>", "<7>", "<8>", "<9>" },
 };
@@ -459,20 +459,20 @@ static const Rule rules[] = {
 	RULE(.wintype = WTYPE "UTILITY", .isfloating = 1)
 	RULE(.wintype = WTYPE "TOOLBAR", .isfloating = 1)
 	RULE(.wintype = WTYPE "SPLASH", .isfloating = 1)
-	RULE(.class = "firefox", .tags = 1 << 0, .switchtag = 3)
-	RULE(.class = BROWSERCLASS, .tags = 1 << 0, .switchtag = 3)
-	RULE(.class = "Code", .tags = 1 << 1, .switchtag = 3)
-	RULE(.class = "jetbrains-idea-ce", .tags = 1 << 1, .switchtag = 3)
-	RULE(.class = "Emacs", .tags = 1 << 1, .switchtag = 3)
-	// RULE(.class = TERMCLASS, .tags = 1 << 1, .switchtag = 3)
-	RULE(.class = "GitHub Desktop", .tags = 1 << 2, .switchtag = 3)
-	RULE(.class = "Rhythmbox", .tags = 1 << 3, .switchtag = 3)
-	RULE(.class = "Soffice", .tags = 1 << 4, .switchtag = 3)
-	RULE(.class = "Gimp", .tags = 1 << 4, .switchtag = 3)
-	RULE(.class = "vlc", .tags = 1 << 5, .switchtag = 3)
-	RULE(.class = "mpv", .tags = 1 << 5, .switchtag = 3)
-	RULE(.class = "Mailspring", .tags = 1 << 6, .switchtag = 3)
-	RULE(.class = "TelegramDesktop", .tags = 1 << 6, .switchtag = 3)
+	// RULE(.class = "firefox", .tags = 1 << 0, .switchtag = 3)
+	// RULE(.class = BROWSERCLASS, .tags = 1 << 0, .switchtag = 3)
+	// RULE(.class = "Code", .tags = 1 << 1, .switchtag = 3)
+	// RULE(.class = "jetbrains-idea-ce", .tags = 1 << 1, .switchtag = 3)
+	// RULE(.class = "Emacs", .tags = 1 << 1, .switchtag = 3)
+	// // RULE(.class = TERMCLASS, .tags = 1 << 1, .switchtag = 3)
+	// RULE(.class = "GitHub Desktop", .tags = 1 << 2, .switchtag = 3)
+	// RULE(.class = "Rhythmbox", .tags = 1 << 3, .switchtag = 3)
+	// RULE(.class = "Soffice", .tags = 1 << 4, .switchtag = 3)
+	// RULE(.class = "Gimp", .tags = 1 << 4, .switchtag = 3)
+	// RULE(.class = "vlc", .tags = 1 << 5, .switchtag = 3)
+	// RULE(.class = "mpv", .tags = 1 << 5, .switchtag = 3)
+	// RULE(.class = "Mailspring", .tags = 1 << 6, .switchtag = 3)
+	// RULE(.class = "TelegramDesktop", .tags = 1 << 6, .switchtag = 3)
 	#if SCRATCHPADS_PATCH
 	RULE(.instance = "spterm", .tags = SPTAG(0), .isfloating = 1)
 	#endif // SCRATCHPADS_PATCH

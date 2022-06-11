@@ -28,8 +28,8 @@ static const Block blocks[] = {
     // AWESOME FONTS :
     {"^C5^  ^d^", "$HOME/.config/scripts/upt", 60, 2},
     {"^C3^  ^d^", "$HOME/.config/scripts/pacupdate", 360, 9},
-    {"^C4^  ^d^", "/home/aloks/.config/scripts/weather", 60, 1},
-    // {"^C1^  ^d^", "$HOME/.config/scripts/kernel", 360, 2},
+    {"^C4^  ^d^", "$HOME/.config/scripts/weather", 60, 1},
+    // {"^C1^  ^d^", "$HOME/.config/scripts/kernel", 360, 2},
     {"^C6^  ^d^", "$HOME/.config/scripts/cpu", 2, 1},
     {"^C5^  ^d^", "$HOME/.config/scripts/memory", 6, 1},
     {"^C3^  ^d^", "$HOME/.config/scripts/battery", 150, 1},
